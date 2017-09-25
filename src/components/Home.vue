@@ -1,18 +1,15 @@
 <template>
-  <div class="home">
-    <nav-bar />
+  <page class="home">
     <h1>{{ msg }}</h1>
-    <nav-footer />
-  </div>
+  </page>
 </template>
 
 <script>
-  import NavBar from '@/components/NavBar'
-  import NavFooter from '@/components/NavFooter'
+  import Page from '@/components/Page'
 
   export default {
-
     name: 'home',
+
     data () {
       return {
         msg: 'Bienvenido al Observatorio de Colombia'
@@ -20,8 +17,7 @@
     },
 
     components: {
-      NavBar,
-      NavFooter
+      Page
     }
 
   }

@@ -3,7 +3,7 @@
     <div class="container">
         <ul class="nav">
           <li>
-            <a href="#">About</a>
+            <a href="#">Sobre el Sitio</a>
           </li>
         </ul>
     </div>
