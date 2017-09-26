@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import NavData from '@/lib/data/nav'
+
 import Page from '@/components/Page'
 import Lipsum from '@/components/Lipsum'
 
@@ -27,23 +29,12 @@ export default {
 
   data () {
     return {
-      subsections: [
-        [
-          'Que es la economía digital?',
-          'Tendencias mundiales de digitalización de las economías',
-          'La importancia económica de la digitalización',
-          'La economía digital y Colombia'
-        ],
-        [
-          'Dimensiones de la economía digital',
-          'Experiencia internacional apara la medición de la economía digital',
-          'Índices para medir el desarrollo de la economía digital de Colombia'
-        ]
-      ]
+      subsections: NavData.subsections
     }
   },
 
   components: {
+    NavData,
     Page,
     Lipsum
   }

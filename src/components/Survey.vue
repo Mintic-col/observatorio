@@ -3,7 +3,7 @@
     <div class="col-sm-3">
       <ul class="nav nav-pills nav-stacked">
         <li v-for="(item, index) in subsections[section-1]" :key="item" :class="{ 'active': index === parseInt(subsection)-1 }">
-          <router-link :to="{name: 'Links', params: {section: section, subsection: index + 1}}">
+          <router-link :to="{name: 'Survey', params: {section: section, subsection: index + 1}}">
             {{ item }}
           </router-link>
         </li>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import NavData from '@/lib/data/nav'
+
 import Page from '@/components/Page'
 
 export default {
@@ -25,50 +27,12 @@ export default {
 
   data () {
     return {
-      subsections: [
-        [
-          'Que es la economía digital?',
-          'Tendencias mundiales de digitalización de las economías',
-          'La importancia económica de la digitalización',
-          'La economía digital y Colombia'
-        ],
-        [
-          'Dimensiones de la economía digital',
-          'Experiencia internacional apara la medición de la economía digital',
-          'Índices para medir el desarrollo de la economía digital de Colombia'
-        ],
-        [
-          'Adopción de tecnologías digitales maduras',
-          'Gestión de tecnologías digitales maduras',
-          'Adopción de tecnologías digitales avanzadas',
-          'Gestión de tecnologías digitales avanzadas'
-        ],
-        [
-          'Adopción de tecnologías digitales maduras',
-          'Gestión de tecnologías digitales maduras',
-          'Adopción de tecnologías digitales avanzadas',
-          'Gestión de tecnologías digitales avanzadas'
-        ],
-        [
-          'Adopción de tecnologías digitales maduras',
-          'Gestión de tecnologías digitales maduras',
-          'Adopción de tecnologías digitales avanzadas',
-          'Gestión de tecnologías digitales avanzadas'
-        ],
-        [
-          'Departamento Administrativo Nacional de Estadística (DANE)',
-          'Ministerio de Tecnologías de la Información y las Comunicaciones (MINTIC)',
-          'Otras encuestas'
-        ],
-        [
-          'Internacional',
-          'America Latina'
-        ]
-      ]
+      subsections: NavData.subsections
     }
   },
 
   components: {
+    NavData,
     Page
   }
 

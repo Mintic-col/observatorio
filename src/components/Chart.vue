@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import NavData from '@/lib/data/nav'
+
 import Page from '@/components/Page'
 import Lipsum from '@/components/Lipsum'
 
@@ -30,48 +32,13 @@ export default {
 
   data () {
     return {
-      sections: [
-        'Visión',
-        'Medición',
-        'Sector',
-        'Región',
-        'Dimensiones'
-      ],
-      subsections: [
-        [
-          'Que es la economía digital?',
-          'Tendencias mundiales de digitalización de las economías',
-          'La importancia económica de la digitalización',
-          'La economía digital y Colombia'
-        ],
-        [
-          'Dimensiones de la economía digital',
-          'Experiencia internacional apara la medición de la economía digital',
-          'Índices para medir el desarrollo de la economía digital de Colombia'
-        ],
-        [
-          'Adopción de tecnologías digitales maduras',
-          'Gestión de tecnologías digitales maduras',
-          'Adopción de tecnologías digitales avanzadas',
-          'Gestión de tecnologías digitales avanzadas'
-        ],
-        [
-          'Adopción de tecnologías digitales maduras',
-          'Gestión de tecnologías digitales maduras',
-          'Adopción de tecnologías digitales avanzadas',
-          'Gestión de tecnologías digitales avanzadas'
-        ],
-        [
-          'Adopción de tecnologías digitales maduras',
-          'Gestión de tecnologías digitales maduras',
-          'Adopción de tecnologías digitales avanzadas',
-          'Gestión de tecnologías digitales avanzadas'
-        ]
-      ]
+      sections: NavData.sections,
+      subsections: NavData.subsections
     }
   },
 
   components: {
+    NavData,
     Page,
     Lipsum
   }

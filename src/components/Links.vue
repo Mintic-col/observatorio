@@ -17,77 +17,30 @@
 </template>
 
 <script>
-import Page from '@/components/Page'
+  import NavData from '@/lib/data/nav'
+  import LinksData from '@/lib/data/links'
 
-export default {
-  name: 'chart',
+  import Page from '@/components/Page'
 
-  props: ['section', 'subsection'],
+  export default {
+    name: 'chart',
 
-  data () {
-    return {
-      subsections: [
-        [
-          'Que es la economía digital?',
-          'Tendencias mundiales de digitalización de las economías',
-          'La importancia económica de la digitalización',
-          'La economía digital y Colombia'
-        ],
-        [
-          'Dimensiones de la economía digital',
-          'Experiencia internacional apara la medición de la economía digital',
-          'Índices para medir el desarrollo de la economía digital de Colombia'
-        ],
-        [
-          'Adopción de tecnologías digitales maduras',
-          'Gestión de tecnologías digitales maduras',
-          'Adopción de tecnologías digitales avanzadas',
-          'Gestión de tecnologías digitales avanzadas'
-        ],
-        [
-          'Adopción de tecnologías digitales maduras',
-          'Gestión de tecnologías digitales maduras',
-          'Adopción de tecnologías digitales avanzadas',
-          'Gestión de tecnologías digitales avanzadas'
-        ],
-        [
-          'Adopción de tecnologías digitales maduras',
-          'Gestión de tecnologías digitales maduras',
-          'Adopción de tecnologías digitales avanzadas',
-          'Gestión de tecnologías digitales avanzadas'
-        ],
-        [
-          'Departamento Administrativo Nacional de Estadística (DANE)',
-          'Ministerio de Tecnologías de la Información y las Comunicaciones (MINTIC)',
-          'Otras encuestas'
-        ],
-        [
-          'Internacional',
-          'America Latina'
-        ]
-      ],
-      links: [
-        [
-          'OECD.Measuring the Digital Economy: a new perspective, December 8, 2014',
-          'BEA – US Department of Commerce.Measuring the Digital Economy, November 18, 2016',
-          'OECD Measuring GDP in a Digitalised Economy, November 17, 2016',
-          'Barbet and Coutinet.Measuring the digital economy: state-of-the-art Developments and Future Prospects, Second Quarter, 2001',
-          'Mesenbourg. Measuring the digital economy, March 30, 2001'
-        ],
-        [
-          'Katz, R.El ecosistema y la economía digital en América Latina, CAF, CEPAL, Asiet y Fundación Telefónica. 2015.',
-          'Katz, R.Industrialización inclusive y sostenible en América Latina, CEPAL, 2017.',
-          'CAF. Hacia la transformación digital de América Latina y el Caribe; El Observatorio CAF del Ecosistema Digital, 2017.'
-        ]
-      ]
+    props: ['section', 'subsection'],
+
+    data () {
+      return {
+        subsections: NavData.subsections,
+        links: LinksData.links
+      }
+    },
+
+    components: {
+      NavData,
+      LinksData,
+      Page
     }
-  },
 
-  components: {
-    Page
   }
-
-}
 </script>
 
 <style scoped>
