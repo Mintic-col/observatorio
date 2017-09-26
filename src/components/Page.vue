@@ -1,11 +1,9 @@
 <template lang="html">
   <div class="page">
     <nav-bar />
-
     <div class="container">
       <slot></slot>
     </div>
-
     <nav-footer />
   </div>
 </template>

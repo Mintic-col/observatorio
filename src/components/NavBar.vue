@@ -21,16 +21,24 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="#">Que es la economía digital?</a>
+                <router-link :to="{name: 'Static', params: {section: 1, subsection: 1}}">
+                  Que es la economía digital?
+                </router-link>
               </li>
               <li>
-                <a href="#">Tendencias mundiales de digitalización de las economías</a>
+                <router-link :to="{name: 'Static', params: {section: 1, subsection: 2}}">
+                  Tendencias mundiales de digitalización de las economías
+                </router-link>
               </li>
               <li>
-                <a href="#">La importancia económica de la digitalización</a>
+                <router-link :to="{name: 'Static', params: {section: 1, subsection: 3}}">
+                  La importancia económica de la digitalización
+                </router-link>
               </li>
               <li>
-                <a href="#">La economía digital y Colombia</a>
+                <router-link :to="{name: 'Static', params: {section: 1, subsection: 4}}">
+                  La economía digital y Colombia
+                </router-link>
               </li>
             </ul>
           </li>
@@ -40,13 +48,19 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="#">Dimensiones de la economía digital</a>
+                <router-link :to="{name: 'Static', params: {section: 2, subsection: 1}}">
+                  Dimensiones de la economía digital
+                </router-link>
               </li>
               <li>
-                <a href="#">Experiencia internacional apara la medición de la economía digital</a>
+                <router-link :to="{name: 'Static', params: {section: 2, subsection: 2}}">
+                  Experiencia internacional apara la medición de la economía digital
+                </router-link>
               </li>
               <li>
-                <a href="#">Índices para medir el desarrollo de la economía digital de Colombia</a>
+                <router-link :to="{name: 'Static', params: {section: 2, subsection: 3}}">
+                  Índices para medir el desarrollo de la economía digital de Colombia
+                </router-link>
               </li>
             </ul>
           </li>
@@ -56,16 +70,24 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="#">Adopción de tecnologías digitales maduras</a>
+                <router-link :to="{name: 'Chart', params: {section: 3, subsection: 1}}">
+                  Adopción de tecnologías digitales maduras
+                </router-link>
               </li>
               <li>
-                <a href="#">Gestión de tecnologías digitales maduras</a>
+                <router-link :to="{name: 'Chart', params: {section: 3, subsection: 2}}">
+                  Gestión de tecnologías digitales maduras
+                </router-link>
               </li>
               <li>
-                <a href="#">Adopción de tecnologías digitales avanzadas</a>
+                <router-link :to="{name: 'Chart', params: {section: 3, subsection: 3}}">
+                  Adopción de tecnologías digitales avanzadas
+                </router-link>
               </li>
               <li>
-                <a href="#">Gestión de tecnologías digitales avanzadas</a>
+                <router-link :to="{name: 'Chart', params: {section: 3, subsection: 4}}">
+                  Gestión de tecnologías digitales avanzadas
+                </router-link>
               </li>
             </ul>
           </li>
@@ -75,16 +97,24 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="#">Adopción de tecnologías digitales maduras</a>
+                <router-link :to="{name: 'Chart', params: {section: 4, subsection: 1}}">
+                  Adopción de tecnologías digitales maduras
+                </router-link>
               </li>
               <li>
-                <a href="#">Gestión de tecnologías digitales maduras</a>
+                <router-link :to="{name: 'Chart', params: {section: 4, subsection: 2}}">
+                  Gestión de tecnologías digitales maduras
+                </router-link>
               </li>
               <li>
-                <a href="#">Adopción de tecnologías digitales avanzadas</a>
+                <router-link :to="{name: 'Chart', params: {section: 4, subsection: 3}}">
+                  Adopción de tecnologías digitales avanzadas
+                </router-link>
               </li>
               <li>
-                <a href="#">Gestión de tecnologías digitales avanzadas</a>
+                <router-link :to="{name: 'Chart', params: {section: 4, subsection: 4}}">
+                  Gestión de tecnologías digitales avanzadas
+                </router-link>
               </li>
             </ul>
           </li>
@@ -94,16 +124,24 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="#">Adopción de tecnologías digitales maduras</a>
+                <router-link :to="{name: 'Chart', params: {section: 5, subsection: 1}}">
+                  Adopción de tecnologías digitales maduras
+                </router-link>
               </li>
               <li>
-                <a href="#">Gestión de tecnologías digitales maduras</a>
+                <router-link :to="{name: 'Chart', params: {section: 5, subsection: 2}}">
+                  Gestión de tecnologías digitales maduras
+                </router-link>
               </li>
               <li>
-                <a href="#">Adopción de tecnologías digitales avanzadas</a>
+                <router-link :to="{name: 'Chart', params: {section: 5, subsection: 3}}">
+                  Adopción de tecnologías digitales avanzadas
+                </router-link>
               </li>
               <li>
-                <a href="#">Gestión de tecnologías digitales avanzadas</a>
+                <router-link :to="{name: 'Chart', params: {section: 5, subsection: 4}}">
+                  Gestión de tecnologías digitales avanzadas
+                </router-link>
               </li>
             </ul>
           </li>
@@ -113,13 +151,19 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="#">Departamento Administrativo Nacional de Estadística (DANE)</a>
+                <router-link :to="{name: 'Survey', params: {section: 6, subsection: 1}}">
+                  Departamento Administrativo Nacional de Estadística (DANE)
+                </router-link>
               </li>
               <li>
-                <a href="#">Ministerio de Tecnologías de la Información y las Comunicaciones (MINTIC)</a>
+                <router-link :to="{name: 'Survey', params: {section: 6, subsection: 2}}">
+                  Ministerio de Tecnologías de la Información y las Comunicaciones (MINTIC)
+                </router-link>
               </li>
               <li>
-                <a href="#">Otras encuestas</a>
+                <router-link :to="{name: 'Survey', params: {section: 6, subsection: 3}}">
+                  Otras encuestas
+                </router-link>
               </li>
             </ul>
           </li>
@@ -129,10 +173,14 @@
             </a>
             <ul class="dropdown-menu">
               <li>
-                <a href="#">Internacional</a>
+                <router-link :to="{name: 'Links', params: {section: 7, subsection: 1}}">
+                  Adopción de tecnologías digitales maduras
+                </router-link>
               </li>
               <li>
-                <a href="#">America Latina</a>
+                <router-link :to="{name: 'Links', params: {section: 7, subsection: 2}}">
+                  Gestión de tecnologías digitales maduras
+                </router-link>
               </li>
             </ul>
           </li>
