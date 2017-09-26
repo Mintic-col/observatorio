@@ -11,7 +11,7 @@
     </div>
     <div class="col-sm-9">
       <h2>{{ subsections[section-1][subsection-1] }} documentos</h2>
-      <p v-for="link in links[subsection-1]" :key="link">{{ link }}</p>
+      <p v-for="link in links[subsection-1]" :key="link[0]"><a v-if="link[1].length" :href="'/static/docs/' + downloadGroup + link[1]">{{ link[0] }}</a><span v-else>{{ link[0] }}</span></p>
     </div>
   </page>
 </template>
@@ -31,6 +31,12 @@
       return {
         subsections: NavData.subsections,
         links: LinksData.links
+      }
+    },
+
+    computed: {
+      downloadGroup: function () {
+        return ['int/', 'la/'][this.subsection - 1]
       }
     },
 
