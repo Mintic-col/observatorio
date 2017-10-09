@@ -18,14 +18,14 @@
     </div>
     <div class="col-sm-9 row">
       <div class="col-sm-6">
-        <select v-model="selected">
+        <select v-model="selectedA">
           <option disabled value="" selected>Seleccione tamaño de empresa</option>
           <option>Empresas pequeñas, medianas y grandes</option>
           <option>Microempresas y pequeñas empresas</option>
         </select>
       </div>
       <div class="col-sm-6">
-        <select v-model="selected">
+        <select v-model="selectedB">
           <option disabled value="" selected>Seleccione un indicador</option>
           <option>Digitalización total</option>
           <option>Adopción de infraestructura tecnológica digital</option>
@@ -37,7 +37,7 @@
     </div>
     <div class="col-sm-9 row">
       <div class="col-sm-6">
-        <select v-model="selected">
+        <select v-model="selectedC">
           <option disabled value="" selected>Compare entre sectores</option>
           <option>Todos los sectores</option>
           <option>Agricultura</option>
@@ -51,12 +51,20 @@
         </select>
       </div>
       <div class="col-sm-2">
-        <select v-model="selected">
+        <select v-model="selectedD">
           <option disabled value="" selected>Año</option>
           <option>2013</option>
           <option>2014</option>
           <option>2015</option>
         </select>
+      </div>
+      <div class="col-sm-12 row">
+        <bar-chart
+          class="chart"
+          :data="dataCollection"
+          :options="dataOptions"
+          >
+        </bar-chart>
       </div>
     </div>
   </page>
@@ -64,6 +72,7 @@
 
 <script>
 import NavData from '@/lib/data/nav'
+import BarChart from '@/lib/chart/bar'
 
 import Page from '@/components/Page'
 import Lipsum from '@/components/Lipsum'
@@ -77,12 +86,52 @@ export default {
     return {
       sections: NavData.sections,
       subsections: NavData.subsections,
-      selected: ''
+      selectedA: '',
+      selectedB: '',
+      selectedC: '',
+      selectedD: '',
+      dataOptions: {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [
+            {
+              barPercentage: 0.8,
+              categoryPercentage: 1.0,
+              ticks: {
+                autoSkip: false
+              }
+            }
+          ]
+        }
+      },
+      dataCollection: {
+        labels: [
+          'Agricultura',
+          'Minería',
+          'Industrias manufactureras',
+          'Comercio',
+          'Correo y almacenamiento',
+          'Alojamiento y servicios de comida',
+          'Información y Comunicaciones',
+          'Actividades inmobiliarias'
+        ],
+        datasets: [
+          {
+            backgroundColor: '#f87979',
+            data: [0, 0, 53.21, 54.09, 58.92, 57.78, 64.01, 58.30, 61.44, 57.17]
+          }
+        ]
+      }
     }
   },
 
   components: {
     NavData,
+    BarChart,
     Page,
     Lipsum
   }
@@ -100,6 +149,9 @@ export default {
   h4.grouping {
     text-transform: uppercase;
     font-weight: bold;
+  }
+  .chart {
+    margin-top: 2em;
   }
 </style>
 
