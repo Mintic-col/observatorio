@@ -16,6 +16,49 @@
         Este nivel estudia la asimilación por sector industrial de tecnologías digitales consideradas maduras como computación (PC, servidores), el uso de Internet, aplicaciones de Internet (banca electrónica, publicidad, venta de productos, compra de insumos, acceso a información de productos y servicios, provisión de servicio a clientes, correo electrónico, interacción con el gobierno), uso de banda ancha (ADSL, Fibra óptica, cable modem, LTE), el despliegue de LAN, la existencia de sitio Web, y el software de gestión.
       </p>
     </div>
+    <div class="col-sm-9 row">
+      <div class="col-sm-6">
+        <select v-model="selected">
+          <option disabled value="" selected>Seleccione tamaño de empresa</option>
+          <option>Empresas pequeñas, medianas y grandes</option>
+          <option>Microempresas y pequeñas empresas</option>
+        </select>
+      </div>
+      <div class="col-sm-6">
+        <select v-model="selected">
+          <option disabled value="" selected>Seleccione un indicador</option>
+          <option>Digitalización total</option>
+          <option>Adopción de infraestructura tecnológica digital</option>
+          <option>Digitalización de la cadena de aprovisionamiento</option>
+          <option>Digitalización de procesamiento</option>
+          <option>Digitalización de canales de distribución</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-9 row">
+      <div class="col-sm-6">
+        <select v-model="selected">
+          <option disabled value="" selected>Compare entre sectores</option>
+          <option>Todos los sectores</option>
+          <option>Agricultura</option>
+          <option>Minería</option>
+          <option>Industrias manufactureras</option>
+          <option>Comercio</option>
+          <option>Correo y almacenamiento</option>
+          <option>Alojamiento y servicios de comida</option>
+          <option>Información y Comunicaciones</option>
+          <option>Actividades inmobiliarias</option>
+        </select>
+      </div>
+      <div class="col-sm-2">
+        <select v-model="selected">
+          <option disabled value="" selected>Año</option>
+          <option>2013</option>
+          <option>2014</option>
+          <option>2015</option>
+        </select>
+      </div>
+    </div>
   </page>
 </template>
 
@@ -33,7 +76,8 @@ export default {
   data () {
     return {
       sections: NavData.sections,
-      subsections: NavData.subsections
+      subsections: NavData.subsections,
+      selected: ''
     }
   },
 
