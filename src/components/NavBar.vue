@@ -9,7 +9,9 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Marca</a>
+         <router-link class="navbar-brand" :to="{name: 'Home'}">
+           Marca
+        </router-link>
       </div>
 
       <!-- Collect the nav links, forms, and other content for toggling -->
@@ -199,4 +201,7 @@ export default {
 </script>
 
 <style scoped>
+.navbar {
+  margin-bottom: 0px;
+}
 </style>

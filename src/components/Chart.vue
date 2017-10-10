@@ -60,7 +60,7 @@
       </div>
       <div class="col-sm-12 row">
         <bar-chart
-          class="chart"
+          class="chart-item"
           :data="dataCollection"
           :options="dataOptions"
           >
@@ -150,7 +150,7 @@ export default {
     text-transform: uppercase;
     font-weight: bold;
   }
-  .chart {
+  .chart-item {
     margin-top: 2em;
   }
 </style>

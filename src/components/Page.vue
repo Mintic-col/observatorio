@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="page">
     <nav-bar />
-    <div class="container">
+    <div :class="{ container: container }">
       <slot></slot>
     </div>
     <nav-footer />
@@ -14,6 +14,13 @@ import NavFooter from '@/components/NavFooter'
 
 export default {
   name: 'screen',
+
+  props: {
+    container: {
+      default: true,
+      type: Boolean
+    }
+  },
 
   components: {
     NavBar,
