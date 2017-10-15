@@ -10,7 +10,7 @@
           <span class="icon-bar"></span>
         </button>
          <router-link class="navbar-brand" :to="{name: 'Home'}">
-           Marca
+           Inicio
         </router-link>
       </div>
 
