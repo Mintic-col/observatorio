@@ -11,33 +11,36 @@
     </div>
     <div class="col-sm-9">
       <h2>{{ subsections[section-1][subsection-1] }}</h2>
-      <lipsum />
+      <div v-html="staticText[section-1][subsection-1]"></div>
     </div>
   </page>
 </template>
 
 <script>
-import NavData from '@/lib/data/nav'
+  import NavData from '@/lib/data/nav'
+  import StaticData from '@/lib/data/static'
 
-import Page from '@/components/Page'
-import Lipsum from '@/components/Lipsum'
+  import Page from '@/components/Page'
+  import Lipsum from '@/components/Lipsum'
 
-export default {
-  name: 'static',
+  export default {
+    name: 'static',
 
-  props: ['section', 'subsection'],
+    props: ['section', 'subsection'],
 
-  data () {
-    return {
-      subsections: NavData.subsections
+    data () {
+      return {
+        subsections: NavData.subsections,
+        staticText: StaticData.static
+      }
+    },
+
+    components: {
+      NavData,
+      StaticData,
+      Page,
+      Lipsum
     }
-  },
-
-  components: {
-    NavData,
-    Page,
-    Lipsum
-  }
 
 }
 </script>

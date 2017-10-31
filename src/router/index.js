@@ -9,7 +9,6 @@ import Links from '@/components/Links'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
   routes: [
     { path: '/', name: 'Home', component: Home },
     { path: '/page/:section/:subsection', name: 'Static', component: Static, props: true },

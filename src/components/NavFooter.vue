@@ -1,11 +1,11 @@
 <template>
   <footer class="footer">
     <div class="container">
-        <ul class="nav">
+        <!-- <ul class="nav">
           <li>
             <a href="#">Sobre el Sitio</a>
           </li>
-        </ul>
+        </ul> -->
     </div>
   </footer>
 </template>
