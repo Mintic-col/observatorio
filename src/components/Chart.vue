@@ -341,7 +341,7 @@
 
     methods: {
       showValue: function (value) {
-        return _.trim(value) === '' ? '--' : value
+        return _.trim(value) === '' ? 'n.d.' : value
       },
 
       percentageRow: function (key) {
