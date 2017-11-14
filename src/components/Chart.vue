@@ -18,7 +18,7 @@
       <p v-else>
         La asimilación de tecnologías de avanzada debe considerar siete categorías de tecnologías digitales: ciberseguridad, sensores/m2m, robotica, impresoras 3d, computacion en la nube, big data/analiticas, e inteligencia artificial/aprendizaje de maquinas.
       </p>
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <select v-model="size">
           <option value="Total">Todos tamaños de empresa</option>
           <option value="Micros">Microempresas</option>
@@ -26,7 +26,7 @@
           <option value="Grandes">Grandes</option>
         </select>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <select v-model="region">
           <option value="Total">Nación</option>
           <option value="Region Atlantico">Costa Atlántica</option>
@@ -38,14 +38,14 @@
           <option value="Region de la Orinoquia y Amazonia">Región de la Orinoquia y Amazonia</option>
         </select>
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-4">
         <select v-model="year">
           <option value="2015" selected>2015</option>
           <option value="2016">2016</option>
           <option value="2017">2017</option>
         </select>
       </div>
-      <div class="col-sm-10">
+      <div class="col-sm-12">
         <select v-model="sector">
           <option value="Total:Total:Total">Todos los sectores</option>
           <option value="Sector Primario:Total:Total">Sector primario</option>
@@ -131,7 +131,7 @@
           <tbody>
             <tr v-for="(value, key) in selected_results[0]" v-if="percentageRow(key)" :key="key">
               <td>{{ key }}</td>
-              <td>{{ value }}</td>
+              <td>{{ showValue(value) }}</td>
             </tr>
           </tbody>
         </table>
@@ -178,6 +178,15 @@
                 categoryPercentage: 1.0,
                 ticks: {
                   autoSkip: false
+                }
+              }
+            ],
+            yAxes: [
+              {
+                ticks: {
+                  min: 0,
+                  max: 100,
+                  stepSize: 20
                 }
               }
             ]
@@ -331,6 +340,10 @@
     },
 
     methods: {
+      showValue: function (value) {
+        return _.trim(value) === '' ? '--' : value
+      },
+
       percentageRow: function (key) {
         return _.startsWith(key, 'Proporcion') || _.startsWith(key, 'Porcentaje')
       },
@@ -421,6 +434,10 @@
   }
   .chart-item {
     margin-top: 2em;
+  }
+  select {
+    margin-bottom: 0.5em;
+    margin-right: 0.5em;
   }
 </style>
 
