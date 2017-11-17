@@ -19,11 +19,18 @@
         La asimilación de tecnologías de avanzada debe considerar siete categorías de tecnologías digitales: ciberseguridad, sensores/m2m, robotica, impresoras 3d, computacion en la nube, big data/analiticas, e inteligencia artificial/aprendizaje de maquinas.
       </p>
       <div class="col-sm-4">
-        <select v-model="size">
+        <select v-if="true" v-model="size">
           <option value="Total">Todos tamaños de empresa</option>
           <option value="Micros">Microempresas</option>
           <option value="Pymes">Pymes</option>
           <option value="Grandes">Grandes</option>
+        </select>
+        <select v-else v-model="indicator">
+          <option value="Calculo del Indice">Calculo del Indice</option>
+          <option value="Distribucion">Distribucion</option>
+          <option value="Infraestructura">Infraestructura</option>
+          <option value="Insumos">Insumos</option>
+          <option value="Procesamiento">Procesamiento</option>
         </select>
       </div>
       <div class="col-sm-4">
@@ -39,19 +46,22 @@
         </select>
       </div>
       <div class="col-sm-4">
-        <select v-model="year">
+        <select  v-if="subsection == 1 || subsection == 3" v-model="year">
           <option value="2015" selected>2015</option>
           <option value="2016">2016</option>
           <option value="2017">2017</option>
         </select>
+        <select  v-else v-model="year">
+          <option value="2017" selected>2017</option>
+        </select>
       </div>
       <div class="col-sm-12">
-        <select v-model="sector">
+        <select v-if="subsection == 1 || subsection == 3" v-model="sector">
           <option value="Total:Total:Total">Todos los sectores</option>
-          <option value="Sector Primario:Total:Total">Sector primario</option>
+          <option value="Sector Primario:Total:Total">&nbsp;&nbsp;Sector primario</option>
           <option value="Sector Primario:Agricultura y ganadería:Total">&nbsp;&nbsp;&nbsp;&nbsp;Agricultura y ganadería</option>
           <option value="Sector Primario:Minas y canteras:Total">&nbsp;&nbsp;&nbsp;&nbsp;Minas y canteras</option>
-          <option value="Sector Secundario:Total:Total">Sector secundario</option>
+          <option value="Sector Secundario:Total:Total">&nbsp;&nbsp;Sector secundario</option>
           <option value="Sector Secundario:Industrias manufactureras:Total">&nbsp;&nbsp;&nbsp;&nbsp;Manufactura</option>
           <option value="Sector Secundario:Industrias manufactureras:Textiles, prendas y cueros">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Textiles, prendas y cueros</option>
           <option value="Sector Secundario:Industrias manufactureras:Alimentos y Bebidas">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alimentos y Bebidas</option>
@@ -62,7 +72,7 @@
           <option value="Sector Secundario:Industrias manufactureras:Otros manufactura">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otros manufactura</option>
           <option value="Sector Secundario:Servicios Publicos:Total">&nbsp;&nbsp;&nbsp;&nbsp;Servicios públicos</option>
           <option value="Sector Secundario:Construccion:Total">&nbsp;&nbsp;&nbsp;&nbsp;Construcción</option>
-          <option value="Sector Terciario:Total:Total">Sector terciario</option>
+          <option value="Sector Terciario:Total:Total">&nbsp;&nbsp;Sector terciario</option>
           <option value="Sector Terciario:Comercio:Total">&nbsp;&nbsp;&nbsp;&nbsp;Comercio</option>
           <option value="Sector Terciario:Servicios:Total">&nbsp;&nbsp;&nbsp;&nbsp;Servicios</option>
           <option value="Sector Terciario:Servicios:Transporte y almacenamiento">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Transporte y almacenamiento</option>
@@ -77,6 +87,12 @@
           <option value="Sector Terciario:Servicios:Actividades artísticas, de entretenimiento y recreación">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actividades artísticas, de entretenimiento y recreación</option>
           <option value="Sector Terciario:Servicios:Otros servicios">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otros servicios</option>
         </select>
+        <select v-else v-model="sector">
+          <option value="Total:Total:Total">Todos los sectores</option>
+          <option value="Sector Secundario:Industrias manufactureras:Total">&nbsp;&nbsp;Industria</option>
+          <option value="Sector Terciario:Comercio:Total">&nbsp;&nbsp;Comercio</option>
+          <option value="Sector Terciario:Servicios:Total">&nbsp;&nbsp;Servicios</option>
+       </select>
       </div>
       <!-- <div class="col-sm-12">
         <select v-if="subsection == 1" v-model="indicator">
@@ -112,9 +128,9 @@
         </select>
      </div> -->
       <div class="col-sm-12">
-        <bar-chart
+        <bar-chart v-if="selected_results"
           class="chart-item"
-          :chart-data="dataCollection"
+          :chartData="dataCollection"
           :options="dataOptions"
           :height="200"
           >
@@ -135,6 +151,10 @@
             </tr>
           </tbody>
         </table>
+      </div>
+      <div v-else>
+        <br /></br /><br /></br />
+        <h5>Los datos aún no están disponibles</h5>
       </div>
     </div>
   </page>
@@ -161,10 +181,10 @@
         sections: NavData.sections,
         subsections: NavData.subsections,
         size: 'Total',
-        indicator: '',
+        indicator: 'Calculo del Indice',
         sector: 'Total:Total:Total',
         region: 'Total',
-        year: '2015',
+        year: (this.subsection === '2' || this.subsection === '4') ? '2017' : '2015',
         dataOptions: {
           responsive: true,
           maintainAspectRatio: true,
@@ -192,7 +212,7 @@
             ]
           }
         },
-        dataCollection: null,
+        dataCollection: { datasets: [], labels: [] },
         results: null,
         dataFiles: [
           {
@@ -351,42 +371,37 @@
       fillData: function () {
         let labels = []
         let values = []
-        if (this.subsection === 1) {
+        if (parseInt(this.subsection) === 1) {
           values = [0, 0, 0, 0, 0]
           labels = ['Calculo del Indice', 'Distribucion', 'Infraestructura', 'Insumos', 'Procesamiento']
           if (this.selected_results.length) {
             values = [
-              this.selected_results[0]['Calculo del Indice'],
-              this.selected_results[0]['Distribucion'],
-              this.selected_results[0]['Infraestructura'],
-              this.selected_results[0]['Insumos'],
-              this.selected_results[0]['Procesamiento']
+              parseFloat(this.selected_results[0]['Calculo del Indice']),
+              parseFloat(this.selected_results[0]['Distribucion']),
+              parseFloat(this.selected_results[0]['Infraestructura']),
+              parseFloat(this.selected_results[0]['Insumos']),
+              parseFloat(this.selected_results[0]['Procesamiento'])
             ]
           }
         }
-        if (this.subsection === 2) {
+        if (parseInt(this.subsection) === 2) {
           values = [0, 0, 0, 0, 0, 0]
-          labels = ['Calculo del Indice', 'GOBERNANZA', 'PRESUPUESTO', 'CAPACITIACIÓN', 'SEGURIDAD', 'INNOVACIÓN']
+          labels = ['Calculo del Indice', 'Gobernanza', 'Presupuesto', 'Capacitiación', 'Seguridad', 'Innovación']
           if (this.selected_results.length) {
             values = [
-              this.selected_results[0]['Calculo del Indice'],
-              this.selected_results[0]['GOBERNANZA'],
-              this.selected_results[0]['PRESUPUESTO'],
-              this.selected_results[0]['CAPACITIACIÓN'],
-              this.selected_results[0]['SEGURIDAD'],
-              this.selected_results[0]['INNOVACIÓN']
+              parseFloat(this.selected_results[0]['Calculo del Indice']),
+              parseFloat(this.selected_results[0]['GOBERNANZA']),
+              parseFloat(this.selected_results[0]['PRESUPUESTO']),
+              parseFloat(this.selected_results[0]['CAPACITIACIÓN']),
+              parseFloat(this.selected_results[0]['SEGURIDAD']),
+              parseFloat(this.selected_results[0]['INNOVACIÓN'])
             ]
           }
         }
 
         this.dataCollection = {
-          labels: labels,
-          datasets: [
-            {
-              backgroundColor: '#f87979',
-              data: values
-            }
-          ]
+          datasets: [{backgroundColor: '#f87979', data: values}],
+          labels: labels
         }
       }
     },
@@ -402,11 +417,24 @@
               that.results = results
             }
           })
+        } else {
+          that.results = null
         }
       },
 
       selected_results: function () {
         this.fillData()
+      },
+
+      subsection: function (to, from) {
+        if (parseInt(to) === 2 || parseInt(to) === 4) {
+          this.year = '2017'
+          this.sector = 'Total:Total:Total'
+        }
+        if (parseInt(to) === 1 || parseInt(to) === 3) {
+          this.year = '2015'
+          this.sector = 'Total:Total:Total'
+        }
       }
     },
 
