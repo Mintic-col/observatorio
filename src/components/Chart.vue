@@ -56,7 +56,7 @@
         </select>
       </div>
       <div class="col-sm-12">
-        <select v-if="subsection == 1 || subsection == 3" v-model="sector">
+        <select v-model="sector">
           <option value="Total:Total:Total">Todos los sectores</option>
           <option value="Sector Primario:Total:Total">&nbsp;&nbsp;Sector primario</option>
           <option value="Sector Primario:Agricultura y ganadería:Total">&nbsp;&nbsp;&nbsp;&nbsp;Agricultura y ganadería</option>
@@ -87,12 +87,6 @@
           <option value="Sector Terciario:Servicios:Actividades artísticas, de entretenimiento y recreación">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actividades artísticas, de entretenimiento y recreación</option>
           <option value="Sector Terciario:Servicios:Otros servicios">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Otros servicios</option>
         </select>
-        <select v-else v-model="sector">
-          <option value="Total:Total:Total">Todos los sectores</option>
-          <option value="Sector Secundario:Industrias manufactureras:Total">&nbsp;&nbsp;Industria</option>
-          <option value="Sector Terciario:Comercio:Total">&nbsp;&nbsp;Comercio</option>
-          <option value="Sector Terciario:Servicios:Total">&nbsp;&nbsp;Servicios</option>
-       </select>
       </div>
       <!-- <div class="col-sm-12">
         <select v-if="subsection == 1" v-model="indicator">
@@ -165,7 +159,6 @@
   import Papa from 'papaparse'
 
   import NavData from '@/lib/data/nav'
-  import ChartData from '@/lib/data/chart'
   import BarChart from '@/lib/chart/bar'
 
   import Page from '@/components/Page'
@@ -283,52 +276,6 @@
                this.year !== ''
       },
 
-      chartData: function () {
-        let record = _.find(ChartData.summaryData, {
-          type: 'sector',
-          name: 'adoption-mature',
-          size: this.size,
-          indicator: this.indicator,
-          year: this.year
-        })
-        if (record) {
-          return record.data
-        } else {
-          return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        }
-      },
-
-      chartLabels: function () {
-        let record = _.find(ChartData.summaryLabels, {
-          size: this.size
-        })
-        if (record) {
-          return record.labels
-        } else {
-          return ['']
-        }
-      },
-
-      tableLabels: function () {
-        return ChartData.detailLabels
-      },
-
-      tableData: function () {
-        let record = _.find(ChartData.detailData, {
-          type: 'sector',
-          name: 'adoption-mature',
-          size: this.size,
-          // indicator: this.indicator,
-          sector: this.sector,
-          year: this.year
-        })
-        if (record) {
-          return record.data
-        } else {
-          return ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
-        }
-      },
-
       selected_results: function () {
         let [sector, economicSector, subSector] = this.sector.split(':')
         if (this.results) {
@@ -440,7 +387,6 @@
 
     components: {
       NavData,
-      ChartData,
       BarChart,
       Page,
       Lipsum
