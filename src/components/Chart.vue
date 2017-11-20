@@ -18,22 +18,42 @@
       <p v-else>
         La asimilación de tecnologías de avanzada debe considerar siete categorías de tecnologías digitales: ciberseguridad, sensores/m2m, robotica, impresoras 3d, computacion en la nube, big data/analiticas, e inteligencia artificial/aprendizaje de maquinas.
       </p>
-      <div class="col-sm-4">
-        <select v-if="true" v-model="size">
-          <option value="Total">Todos tamaños de empresa</option>
-          <option value="Micros">Microempresas</option>
-          <option value="Pymes">Pymes</option>
-          <option value="Grandes">Grandes</option>
+      <div class="col-sm-2">
+        <select  v-if="subsection == 1 || subsection == 3" v-model="year">
+          <option value="2015" selected>2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
         </select>
-        <select v-else v-model="indicator">
+        <select  v-else v-model="year">
+          <option value="2017" selected>2017</option>
+        </select>
+      </div>
+      <div v-if="section > 3" class="col-sm-3">
+        <select v-if="subsection == 1" v-model="indicator" @change="fillData()">
           <option value="Calculo del Indice">Calculo del Indice</option>
           <option value="Distribucion">Distribucion</option>
           <option value="Infraestructura">Infraestructura</option>
           <option value="Insumos">Insumos</option>
           <option value="Procesamiento">Procesamiento</option>
         </select>
+        <select v-else v-model="indicator" @change="fillData()">
+          <option value="Calculo del Indice">Calculo del Indice</option>
+          <option value="GOBERNANZA">Gobernanza</option>
+          <option value="PRESUPUESTO">Presupuesto</option>
+          <option value="CAPACITIACIÓN">Capacitiación</option>
+          <option value="SEGURIDAD">Seguridad</option>
+          <option value="INNOVACIÓN">Innovación</option>
+        </select>
       </div>
-      <div class="col-sm-4">
+      <div v-if="section != 5" class="col-sm-3">
+        <select v-model="size">
+          <option value="Total">Todos tamaños de empresa</option>
+          <option value="Micros">Microempresas</option>
+          <option value="Pymes">Pymes</option>
+          <option value="Grandes">Grandes</option>
+        </select>
+      </div>
+      <div v-if="section != 4" class="col-sm-3">
         <select v-model="region">
           <option value="Total">Nación</option>
           <option value="Region Atlantico">Costa Atlántica</option>
@@ -43,16 +63,6 @@
           <option value="Antioquia">Antioquia</option>
           <option value="Eje Cafetero">Eje Cafetero</option>
           <option value="Region de la Orinoquia y Amazonia">Región de la Orinoquia y Amazonia</option>
-        </select>
-      </div>
-      <div class="col-sm-4">
-        <select  v-if="subsection == 1 || subsection == 3" v-model="year">
-          <option value="2015" selected>2015</option>
-          <option value="2016">2016</option>
-          <option value="2017">2017</option>
-        </select>
-        <select  v-else v-model="year">
-          <option value="2017" selected>2017</option>
         </select>
       </div>
       <div class="col-sm-12">
@@ -122,7 +132,7 @@
         </select>
      </div> -->
       <div class="col-sm-12">
-        <bar-chart v-if="selected_results"
+        <bar-chart v-if="tableResults"
           class="chart-item"
           :chartData="dataCollection"
           :options="dataOptions"
@@ -130,7 +140,27 @@
           >
         </bar-chart>
       </div>
-      <div v-if="selected_results" class="col-sm-12">
+      <div v-if="section == 5" class="col-sm-12">
+        <select v-model="size">
+          <option value="Total">Todos tamaños de empresa</option>
+          <option value="Micros">Microempresas</option>
+          <option value="Pymes">Pymes</option>
+          <option value="Grandes">Grandes</option>
+        </select>
+      </div>
+      <div v-if="section == 4" class="col-sm-12">
+        <select v-model="region">
+          <option value="Total">Nación</option>
+          <option value="Region Atlantico">Costa Atlántica</option>
+          <option value="Region Pacifico">Costa Pacifica</option>
+          <option value="Region Central">Región Central</option>
+          <option value="Region Oriental">Región Oriental</option>
+          <option value="Antioquia">Antioquia</option>
+          <option value="Eje Cafetero">Eje Cafetero</option>
+          <option value="Region de la Orinoquia y Amazonia">Región de la Orinoquia y Amazonia</option>
+        </select>
+      </div>
+      <div v-if="tableResults" class="col-sm-12">
         <table class="table">
           <thead>
             <tr>
@@ -139,7 +169,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(value, key) in selected_results[0]" v-if="percentageRow(key)" :key="key">
+            <tr v-for="(value, key) in tableResults[0]" v-if="percentageRow(key)" :key="key">
               <td>{{ key }}</td>
               <td>{{ showValue(value) }}</td>
             </tr>
@@ -276,7 +306,7 @@
                this.year !== ''
       },
 
-      selected_results: function () {
+      tableResults: function () {
         let [sector, economicSector, subSector] = this.sector.split(':')
         if (this.results) {
           let results = _.filter(this.results.data, {
@@ -294,6 +324,43 @@
                       ', Sector: ' + sector +
                       ', Sector Economico: ' + economicSector +
                       ', Sub sector: ' + subSector + ']')
+          return results
+        } else {
+          return null
+        }
+      },
+
+      chartResults: function () {
+        let [sector, economicSector, subSector] = this.sector.split(':')
+        if (this.results) {
+          let results = null
+          if (parseInt(this.section) === 5) {
+            results = _.filter(this.results.data, {
+              'Año': this.year,
+              'Region Geografica': this.region,
+              'Sector': sector,
+              'Sector Economico': economicSector,
+              'Sub sector': subSector
+            })
+          } else if (parseInt(this.section) === 4) {
+            results = _.filter(this.results.data, {
+              'Año': this.year,
+              'Tamaño de Empresa': this.size,
+              'Sector': sector,
+              'Sector Economico': economicSector,
+              'Sub sector': subSector
+            })
+          } else {
+            results = _.filter(this.results.data, {
+              'Año': this.year,
+              'Tamaño de Empresa': this.size,
+              'Region Geografica': this.region,
+              'Sector': sector,
+              'Sector Economico': economicSector,
+              'Sub sector': subSector
+            })
+          }
+          console.log('FOUND ' + results.length + ' records for chart')
           return results
         } else {
           return null
@@ -318,32 +385,52 @@
       fillData: function () {
         let labels = []
         let values = []
-        if (parseInt(this.subsection) === 1) {
-          values = [0, 0, 0, 0, 0]
+        let keys = []
+
+        if (parseInt(this.section) === 5) {
+          labels = ['Todos tamaños de empresa', 'Microempresas', 'Pymes', 'Grandes']
+          keys = ['Total', 'Micros', 'Pymes', 'Grandes']
+        } else if (parseInt(this.section) === 4) {
+          labels = ['Nación', 'Costa Atlántica', 'Costa Pacifica', 'Región Central', 'Región Oriental', 'Antioquia', 'Eje Cafetero', 'Región de la Orinoquia y Amazonia']
+          keys = ['Total', 'Region Atlantico', 'Region Pacifico', 'Region Central', 'Region Oriental', 'Antioquia', 'Eje Cafetero', 'Region de la Orinoquia y Amazonia']
+        } else {
           labels = ['Calculo del Indice', 'Distribucion', 'Infraestructura', 'Insumos', 'Procesamiento']
-          if (this.selected_results.length) {
+          if (parseInt(this.subsection) === 1 && this.chartResults.length) {
             values = [
-              parseFloat(this.selected_results[0]['Calculo del Indice']),
-              parseFloat(this.selected_results[0]['Distribucion']),
-              parseFloat(this.selected_results[0]['Infraestructura']),
-              parseFloat(this.selected_results[0]['Insumos']),
-              parseFloat(this.selected_results[0]['Procesamiento'])
+              parseFloat(this.chartResults[0]['Calculo del Indice']),
+              parseFloat(this.chartResults[0]['Distribucion']),
+              parseFloat(this.chartResults[0]['Infraestructura']),
+              parseFloat(this.chartResults[0]['Insumos']),
+              parseFloat(this.chartResults[0]['Procesamiento'])
+            ]
+          }
+          if (parseInt(this.subsection) === 2 && this.chartResults.length) {
+            values = [
+              parseFloat(this.chartResults[0]['Calculo del Indice']),
+              parseFloat(this.chartResults[0]['GOBERNANZA']),
+              parseFloat(this.chartResults[0]['PRESUPUESTO']),
+              parseFloat(this.chartResults[0]['CAPACITIACIÓN']),
+              parseFloat(this.chartResults[0]['SEGURIDAD']),
+              parseFloat(this.chartResults[0]['INNOVACIÓN'])
             ]
           }
         }
-        if (parseInt(this.subsection) === 2) {
-          values = [0, 0, 0, 0, 0, 0]
-          labels = ['Calculo del Indice', 'Gobernanza', 'Presupuesto', 'Capacitiación', 'Seguridad', 'Innovación']
-          if (this.selected_results.length) {
-            values = [
-              parseFloat(this.selected_results[0]['Calculo del Indice']),
-              parseFloat(this.selected_results[0]['GOBERNANZA']),
-              parseFloat(this.selected_results[0]['PRESUPUESTO']),
-              parseFloat(this.selected_results[0]['CAPACITIACIÓN']),
-              parseFloat(this.selected_results[0]['SEGURIDAD']),
-              parseFloat(this.selected_results[0]['INNOVACIÓN'])
-            ]
-          }
+
+        if (parseInt(this.section) > 3) {
+          let that = this
+          values = _.map(keys, function (key) {
+            if (that.chartResults.length > 0) {
+              let record = null
+              if (parseInt(that.section) === 5) {
+                record = _.find(that.chartResults, { 'Tamaño de Empresa': key })
+              } else if (parseInt(that.section) === 4) {
+                record = _.find(that.chartResults, { 'Region Geografica': key })
+              }
+              return record ? parseFloat(record[that.indicator]) : 0
+            } else {
+              return 0
+            }
+          })
         }
 
         this.dataCollection = {
@@ -369,17 +456,19 @@
         }
       },
 
-      selected_results: function () {
+      tableResults: function () {
         this.fillData()
       },
 
       subsection: function (to, from) {
         if (parseInt(to) === 2 || parseInt(to) === 4) {
           this.year = '2017'
+          this.indicator = 'Calculo del Indice'
           this.sector = 'Total:Total:Total'
         }
         if (parseInt(to) === 1 || parseInt(to) === 3) {
           this.year = '2015'
+          this.indicator = 'Calculo del Indice'
           this.sector = 'Total:Total:Total'
         }
       }
