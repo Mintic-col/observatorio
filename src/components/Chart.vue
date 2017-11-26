@@ -36,13 +36,19 @@
           <option value="Insumos">Insumos</option>
           <option value="Procesamiento">Procesamiento</option>
         </select>
-        <select v-else v-model="indicator" @change="fillData()">
+        <select v-if="subsection == 2" v-model="indicator" @change="fillData()">
           <option value="Calculo del Indice">Calculo del Indice</option>
           <option value="GOBERNANZA">Gobernanza</option>
           <option value="PRESUPUESTO">Presupuesto</option>
           <option value="CAPACITIACIÓN">Capacitiación</option>
           <option value="SEGURIDAD">Seguridad</option>
           <option value="INNOVACIÓN">Innovación</option>
+        </select>
+        <select v-if="subsection == 3" v-model="indicator" @change="fillData()">
+          <option value="Calculo del Indice">Calculo del Indice</option>
+          <option value="INFRAESTRUCTURA">Infraestructura</option>
+          <option value="PROCESAMIENTO">Procesamiento</option>
+          <option value="DISTRIBUCION">Distribucion</option>
         </select>
       </div>
       <div v-if="section != 5" class="col-sm-3">
@@ -171,13 +177,14 @@
         </select>
      </div> -->
       <div class="col-sm-12">
-        <bar-chart v-if="tableResults"
+        <bar-chart v-if="validTableResults"
           class="chart-item"
           :chartData="dataCollection"
           :options="dataOptions"
           :height="200"
           >
         </bar-chart>
+        <p v-else>NO DISPONIBLE POR FALTA DE DATOS</p>
       </div>
       <div v-if="section == 5" class="col-sm-12">
         <select v-model="size">
@@ -208,16 +215,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(value, key) in tableResults[0]" v-if="percentageRow(key)" :key="key">
+            <tr v-for="(value, key) in tableResults[0]" v-if="isPercentageRow(key)" :key="key">
               <td>{{ key }}</td>
               <td>{{ showValue(value) }}</td>
             </tr>
           </tbody>
         </table>
-      </div>
-      <div v-else>
-        <br /></br /><br /></br />
-        <h5>Los datos aún no están disponibles</h5>
       </div>
     </div>
   </page>
@@ -280,40 +283,16 @@
         results: null,
         dataFiles: [
           {
-            section: 3,
             subsection: 1,
-            type: 'sector',
-            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQEARxmtLDf1Km8q8hVeuL_uXXZkxMrUH1I39qgcCbI3fRlThG2jx9GmVG5hSPTV8sk6tGAMjjmZ8-q/pub?gid=890321464&single=true&output=csv'
+            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=75109715&single=true&output=csv'
           },
           {
-            section: 3,
             subsection: 2,
-            type: 'sector',
-            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPWVOQyE3hfHAg9IlVyHoVaG7n9OgVHVmuube5s0eLWaIMiBTpMVVqzenzlp_mfaSxZgAZeP3HuwLZ/pub?gid=932020998&single=true&output=csv'
+            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=433413066&single=true&output=csv'
           },
           {
-            section: 4,
-            subsection: 1,
-            type: 'region',
-            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQEARxmtLDf1Km8q8hVeuL_uXXZkxMrUH1I39qgcCbI3fRlThG2jx9GmVG5hSPTV8sk6tGAMjjmZ8-q/pub?gid=1487174477&single=true&output=csv'
-          },
-          {
-            section: 4,
-            subsection: 2,
-            type: 'region',
-            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPWVOQyE3hfHAg9IlVyHoVaG7n9OgVHVmuube5s0eLWaIMiBTpMVVqzenzlp_mfaSxZgAZeP3HuwLZ/pub?gid=353370071&single=true&output=csv'
-          },
-          {
-            section: 5,
-            subsection: 1,
-            type: 'size',
-            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQEARxmtLDf1Km8q8hVeuL_uXXZkxMrUH1I39qgcCbI3fRlThG2jx9GmVG5hSPTV8sk6tGAMjjmZ8-q/pub?gid=1406692202&single=true&output=csv'
-          },
-          {
-            section: 5,
-            subsection: 2,
-            type: 'size',
-            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTPWVOQyE3hfHAg9IlVyHoVaG7n9OgVHVmuube5s0eLWaIMiBTpMVVqzenzlp_mfaSxZgAZeP3HuwLZ/pub?gid=1422745164&single=true&output=csv'
+            subsection: 3,
+            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=1096815165&single=true&output=csv'
           }
         ]
       }
@@ -375,6 +354,10 @@
         }
       },
 
+      validTableResults: function () {
+        return this.tableResults && this.tableResults[0] && _.trim(this.tableResults[0]['Calculo del Indice'] || this.tableResults[0][' Calculo del Indice ']) !== ''
+      },
+
       chartResults: function () {
         if (this.results) {
           let results = null
@@ -429,7 +412,7 @@
       },
 
       dataFile: function () {
-        let obj = _.find(this.dataFiles, { section: parseInt(this.section), subsection: parseInt(this.subsection) })
+        let obj = _.find(this.dataFiles, { subsection: parseInt(this.subsection) })
         return obj ? obj.url : null
       }
     },
@@ -445,11 +428,12 @@
       },
 
       showValue: function (value) {
-        return _.trim(value) === '' ? 'n.d.' : value
+        let v = _.trim(value)
+        return v === '' ? 'n.d.' : (_.endsWith(v, '%') ? v : v + '%')
       },
 
-      percentageRow: function (key) {
-        return _.startsWith(key, 'Proporcion') || _.startsWith(key, 'Porcentaje')
+      isPercentageRow: function (key) {
+        return _.startsWith(_.trim(key), 'Porcentaje') || _.startsWith(_.trim(key), 'Proporcion')
       },
 
       fillData: function () {
@@ -513,7 +497,7 @@
 
         let that = this
         values = _.map(keys, function (key) {
-          if (that.chartResults.length > 0) {
+          if (that.chartResults) {
             let record = null
             if (parseInt(that.section) === 5) {
               record = _.find(that.chartResults, { 'Tamaño de Empresa': key })
@@ -530,7 +514,7 @@
                 record = _.find(that.chartResults, { 'Sub sector': key })
               }
             }
-            return record ? parseFloat(record[that.indicator]) : 0
+            return record ? parseFloat(record[that.indicator] || record[' ' + that.indicator + ' ']) : 0
           } else {
             return 0
           }
@@ -564,15 +548,11 @@
       },
 
       subsection: function (to, from) {
-        if (parseInt(to) === 2 || parseInt(to) === 4) {
-          this.year = '2017'
-          this.indicator = 'Calculo del Indice'
-          this.sector = 'Total:Total:Total'
-        }
-        if (parseInt(to) === 1 || parseInt(to) === 3) {
+        this.indicator = 'Calculo del Indice'
+        this.year = '2017'
+
+        if (parseInt(to) === 1) {
           this.year = '2015'
-          this.indicator = 'Calculo del Indice'
-          this.sector = 'Total:Total:Total'
         }
       }
     },
