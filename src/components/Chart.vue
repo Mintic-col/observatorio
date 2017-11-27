@@ -110,7 +110,7 @@
           <option v-if="sector == 'Servicios'" value="Otros servicios">Otros servicios</option>
         </select>
       </div>
-      <div class="col-sm-12">
+      <div class="col-sm-12 chart-container">
         <bar-chart
           class="chart-item"
           :chartData="dataCollection"
@@ -118,6 +118,7 @@
           :height="200"
           >
         </bar-chart>
+        <div v-if="!validTableResults" class="chart-overlay"><br />NO DISPONIBLE POR FALTA DE DATOS </div>
       </div>
       <div v-if="tableResults" class="col-sm-12">
         <table class="table">
@@ -496,6 +497,19 @@
   select {
     margin-bottom: 0.5em;
     margin-right: 0.5em;
+  }
+  .chart-container {
+    position: relative;
+  }
+  .chart-overlay {
+    width: 300px;
+    height: 55px;
+    position: absolute;
+    top: 100px;
+    left: 30%;
+    background-color: lightblue;
+    text-align: center;
+    font-weight: bold;
   }
 </style>
 
