@@ -30,14 +30,14 @@
       </div>
       <div class="col-sm-3">
         <select v-if="subsection == 1" v-model="indicator" @change="fillData()">
-          <option value="Calculo del Indice">Calculo del Indice</option>
-          <option value="Distribucion">Distribucion</option>
+          <option value="Calculo del Indice">Indice de Digitalización</option>
           <option value="Infraestructura">Infraestructura</option>
           <option value="Insumos">Insumos</option>
           <option value="Procesamiento">Procesamiento</option>
+          <option value="Distribucion">Distribucion</option>
         </select>
         <select v-if="subsection == 2" v-model="indicator" @change="fillData()">
-          <option value="Calculo del Indice">Calculo del Indice</option>
+          <option value="Calculo del Indice">Indice de Digitalización</option>
           <option value="GOBERNANZA">Gobernanza</option>
           <option value="PRESUPUESTO">Presupuesto</option>
           <option value="CAPACITIACIÓN">Capacitiación</option>
@@ -45,7 +45,7 @@
           <option value="INNOVACIÓN">Innovación</option>
         </select>
         <select v-if="subsection == 3" v-model="indicator" @change="fillData()">
-          <option value="Calculo del Indice">Calculo del Indice</option>
+          <option value="Calculo del Indice">Indice de Digitalización</option>
           <option value="INFRAESTRUCTURA">Infraestructura</option>
           <option value="PROCESAMIENTO">Procesamiento</option>
           <option value="DISTRIBUCION">Distribucion</option>
@@ -473,7 +473,7 @@
             keys = ['Total', 'Transporte y almacenamiento', 'Alojamiento y servicios de comida', 'Información y comunicaciones', 'Actividades financieras y de seguros', 'Actividades inmobiliarias y Actividades de servicios administrativos y de apoyo', 'Actividades profesionales, científicas y técnicas', 'Administración pública y defensa', 'Educacion', 'Atencion de salud y de asistencia social', 'Actividades artísticas, de entretenimiento y recreación', 'Otros servicios']
           }
         } else {
-          labels = ['Calculo del Indice', 'Distribucion', 'Infraestructura', 'Insumos', 'Procesamiento']
+          labels = ['Indice de Digitalización', 'Distribucion', 'Infraestructura', 'Insumos', 'Procesamiento']
           if (parseInt(this.subsection) === 1 && this.chartResults.length) {
             values = [
               parseFloat(this.chartResults[0]['Calculo del Indice']),
