@@ -50,6 +50,12 @@
           <option value="PROCESAMIENTO">Procesamiento</option>
           <option value="DISTRIBUCION">Distribucion</option>
         </select>
+        <select v-if="subsection == 4" v-model="indicator" @change="fillData()">
+          <option value="Calculo del Indice">Indice de Digitalización</option>
+          <option value="ESTRATEGIA">Estrategia</option>
+          <option value="GOBERNANZA">Gobernanza</option>
+          <option value="CAPITAL HUMANO">Capital Humano</option>
+        </select>
       </div>
       <div class="col-sm-3">
         <select v-model="size">
@@ -83,9 +89,9 @@
           <option v-if="sectorGroup == 'Sector Primario'" value="Agricultura y ganadería">Agricultura y ganadería</option>
           <option v-if="sectorGroup == 'Sector Primario'" value="Minas y canteras">Minas y canteras</option>
           <option v-if="sectorGroup == 'Sector Secundario'" value="Industrias manufactureras">Manufactura</option>
-          <option v-if="sectorGroup == 'Sector Secundario'" value="Servicios Publicos">Servicios públicos</option>
+          <!-- <option v-if="sectorGroup == 'Sector Secundario'" value="Servicios Publicos">Servicios públicos</option>
           <option v-if="sectorGroup == 'Sector Secundario'" value="Construccion">Construcción</option>
-          <option v-if="sectorGroup == 'Sector Terciario'" value="Comercio">Comercio</option>
+          <option v-if="sectorGroup == 'Sector Terciario'" value="Comercio">Comercio</option> -->
           <option v-if="sectorGroup == 'Sector Terciario'" value="Servicios">Servicios</option>
         </select>
          <select v-if="subSectorSelection" v-model="subSector">
@@ -207,6 +213,10 @@
           {
             subsection: 3,
             url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=1096815165&single=true&output=csv'
+          },
+          {
+            subsection: 4,
+            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=1442572218&single=true&output=csv'
           }
         ]
       }
