@@ -91,9 +91,9 @@
           <option v-if="sectorGroup == 'Sector Primario'" value="Agricultura y ganadería">Agricultura y ganadería</option>
           <option v-if="sectorGroup == 'Sector Primario'" value="Minas y canteras">Minas y canteras</option>
           <option v-if="sectorGroup == 'Sector Secundario'" value="Industrias manufactureras">Manufactura</option>
-          <!-- <option v-if="sectorGroup == 'Sector Secundario'" value="Servicios Publicos">Servicios públicos</option>
+          <option v-if="sectorGroup == 'Sector Secundario'" value="Servicios Publicos">Servicios públicos</option>
           <option v-if="sectorGroup == 'Sector Secundario'" value="Construccion">Construcción</option>
-          <option v-if="sectorGroup == 'Sector Terciario'" value="Comercio">Comercio</option> -->
+          <option v-if="sectorGroup == 'Sector Terciario'" value="Comercio">Comercio</option>
           <option v-if="sectorGroup == 'Sector Terciario'" value="Servicios">Servicios</option>
         </select>
       </div>
