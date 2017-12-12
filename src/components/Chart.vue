@@ -18,25 +18,25 @@
       <p v-else>
         La asimilación de tecnologías de avanzada debe considerar siete categorías de tecnologías digitales: ciberseguridad, sensores/m2m, robotica, impresoras 3d, computacion en la nube, big data/analiticas, e inteligencia artificial/aprendizaje de maquinas.
       </p>
-      <div class="col-sm-2">
-        <select  v-if="subsection == 1 || subsection == 3" v-model="year">
+      <div class="col-sm-3">
+        <select  v-if="subsection == 1 || subsection == 3" v-model="year" class="form-control">
           <option value="2015" selected>2015</option>
           <option value="2016">2016</option>
           <option value="2017">2017</option>
         </select>
-        <select  v-else v-model="year">
+        <select  v-else v-model="year" class="form-control">
           <option value="2017" selected>2017</option>
         </select>
       </div>
       <div class="col-sm-3">
-        <select v-if="subsection == 1" v-model="indicator" @change="fillData()">
+        <select v-if="subsection == 1" v-model="indicator" @change="fillData()" class="form-control">
           <option value="Calculo del Indice">Indice de Digitalización</option>
           <option value="Infraestructura">Infraestructura</option>
           <option value="Insumos">Insumos</option>
           <option value="Procesamiento">Procesamiento</option>
           <option value="Distribucion">Distribucion</option>
         </select>
-        <select v-if="subsection == 2" v-model="indicator" @change="fillData()">
+        <select v-if="subsection == 2" v-model="indicator" @change="fillData()" class="form-control">
           <option value="Calculo del Indice">Indice de Digitalización</option>
           <option value="GOBERNANZA">Gobernanza</option>
           <option value="PRESUPUESTO">Presupuesto</option>
@@ -44,13 +44,13 @@
           <option value="SEGURIDAD">Seguridad</option>
           <option value="INNOVACIÓN">Innovación</option>
         </select>
-        <select v-if="subsection == 3" v-model="indicator" @change="fillData()">
+        <select v-if="subsection == 3" v-model="indicator" @change="fillData()" class="form-control">
           <option value="Calculo del Indice">Indice de Digitalización</option>
           <option value="INFRAESTRUCTURA">Infraestructura</option>
           <option value="PROCESAMIENTO">Procesamiento</option>
           <option value="DISTRIBUCION">Distribucion</option>
         </select>
-        <select v-if="subsection == 4" v-model="indicator" @change="fillData()">
+        <select v-if="subsection == 4" v-model="indicator" @change="fillData()" class="form-control">
           <option value="Calculo del Indice">Indice de Digitalización</option>
           <option value="ESTRATEGIA">Estrategia</option>
           <option value="GOBERNANZA">Gobernanza</option>
@@ -58,7 +58,7 @@
         </select>
       </div>
       <div class="col-sm-3">
-        <select v-model="size">
+        <select v-model="size" class="form-control">
           <option value="Total">Todos tamaños de empresa</option>
           <option value="Micros">Microempresas</option>
           <option value="Pymes">Pymes</option>
@@ -66,7 +66,7 @@
         </select>
       </div>
       <div class="col-sm-3">
-        <select v-model="region">
+        <select v-model="region" class="form-control">
           <option value="Total">Nación</option>
           <option value="Region Atlantico">Costa Atlántica</option>
           <option value="Region Pacifico">Costa Pacifica</option>
@@ -77,14 +77,16 @@
           <option value="Region de la Orinoquia y Amazonia">Región de la Orinoquia y Amazonia</option>
         </select>
       </div>
-      <div class="col-sm-12">
-        <select v-model="sectorGroup" @change="changeSectorGroup()">
+      <div class="col-sm-4">
+        <select v-model="sectorGroup" @change="changeSectorGroup()" class="form-control">
           <option value="Total">Todos los sectores</option>
           <option value="Sector Primario">Sector primario</option>
           <option value="Sector Secundario">Sector secundario</option>
           <option value="Sector Terciario">Sector terciario</option>
         </select>
-        <select v-if="sectorGroup != 'Total'" v-model="sector" @change="changeSector()">
+      </div>
+      <div class="col-sm-4">
+        <select v-if="sectorGroup != 'Total'" v-model="sector" @change="changeSector()" class="form-control">
           <option value="Total">Todos los sectores</option>
           <option v-if="sectorGroup == 'Sector Primario'" value="Agricultura y ganadería">Agricultura y ganadería</option>
           <option v-if="sectorGroup == 'Sector Primario'" value="Minas y canteras">Minas y canteras</option>
@@ -94,11 +96,13 @@
           <option v-if="sectorGroup == 'Sector Terciario'" value="Comercio">Comercio</option> -->
           <option v-if="sectorGroup == 'Sector Terciario'" value="Servicios">Servicios</option>
         </select>
-         <select v-if="subSectorSelection" v-model="subSector">
+      </div>
+      <div class="col-sm-4">
+        <select v-if="subSectorSelection" v-model="subSector" class="form-control">
           <option value="Total">Todos los sectores</option>
           <option v-if="sector == 'Industrias manufactureras'" value="Textiles, prendas y cueros">Textiles, prendas y cueros</option>
           <option v-if="sector == 'Industrias manufactureras'" value="Alimentos y Bebidas">Alimentos y Bebidas</option>
-          <option v-if="sector == 'Industrias manufactureras'" value="Productos metalurgicos ">Productos metalurgicos</option>
+          <option v-if="sector == 'Industrias manufactureras'" value="Productos metalurgicos">Productos metalurgicos</option>
           <option v-if="sector == 'Industrias manufactureras'" value="Productos de quimicos /farmaceuticos /plasticos">Productos de quimicos /farmaceuticos /plasticos</option>
           <option v-if="sector == 'Industrias manufactureras'" value="Madera y muebles">Madera y muebles</option>
           <option v-if="sector == 'Industrias manufactureras'" value="Papel e impresión">Papel e impresión</option>
@@ -172,9 +176,12 @@
         subSector: 'Total',
         region: 'Total',
         year: (this.subsection === '2' || this.subsection === '4') ? '2017' : '2015',
+        labels: [],
+        keys: [],
         dataOptions: {
           responsive: true,
           maintainAspectRatio: true,
+          onClick: this.barClickEvent,
           legend: {
             display: false
           },
@@ -344,6 +351,34 @@
     },
 
     methods: {
+      barClickEvent: function (event, array) {
+        if (array.length > 0) {
+          if (parseInt(this.section) === 5) {
+            this.size = this.keys[array[0]._index]
+          } else if (parseInt(this.section) === 4) {
+            this.region = this.keys[array[0]._index]
+          } else if (parseInt(this.section) === 3) {
+            if (this.sectorGroup === 'Sector Secundario' && this.sector === 'Industrias manufactureras') {
+              this.subSector = this.keys[array[0]._index]
+            } else if (this.sectorGroup === 'Sector Terciario' && this.sector === 'Servicios') {
+              this.subSector = this.keys[array[0]._index]
+            } else if (this.sectorGroup === 'Sector Primario') {
+              this.sector = this.keys[array[0]._index]
+              this.subSector = 'Total'
+            } else if (this.sectorGroup === 'Sector Secundario') {
+              this.sector = this.keys[array[0]._index]
+              this.subSector = 'Total'
+            } else if (this.sectorGroup === 'Sector Terciario') {
+              this.sector = this.keys[array[0]._index]
+              this.subSector = 'Total'
+            } else if (this.sectorGroup === 'Total') {
+              this.sectorGroup = this.keys[array[0]._index]
+              this.sector = 'Total'
+            }
+          }
+        }
+      },
+
       changeSectorGroup: function () {
         this.sector = 'Total'
         this.subSector = 'Total'
@@ -363,54 +398,52 @@
       },
 
       fillData: function () {
-        let labels = []
         let values = []
-        let keys = []
         let selectedIndex = -1
 
         if (parseInt(this.section) === 5) {
-          labels = ['Todos tamaños de empresa', 'Microempresas', 'Pymes', 'Grandes']
-          keys = ['Total', 'Micros', 'Pymes', 'Grandes']
-          selectedIndex = keys.indexOf(this.size)
+          this.labels = ['Todos tamaños de empresa', 'Microempresas', 'Pymes', 'Grandes']
+          this.keys = ['Total', 'Micros', 'Pymes', 'Grandes']
+          selectedIndex = this.keys.indexOf(this.size)
         } else if (parseInt(this.section) === 4) {
-          labels = ['Nación', 'Costa Atlántica', 'Costa Pacifica', 'Región Central', 'Región Oriental', 'Antioquia', 'Eje Cafetero', 'Región de la Orinoquia y Amazonia']
-          keys = ['Total', 'Region Atlantico', 'Region Pacifico', 'Region Central', 'Region Oriental', 'Antioquia', 'Eje Cafetero', 'Region de la Orinoquia y Amazonia']
-          selectedIndex = keys.indexOf(this.region)
+          this.labels = ['Nación', 'Costa Atlántica', 'Costa Pacifica', 'Región Central', 'Región Oriental', 'Antioquia', 'Eje Cafetero', 'Región de la Orinoquia y Amazonia']
+          this.keys = ['Total', 'Region Atlantico', 'Region Pacifico', 'Region Central', 'Region Oriental', 'Antioquia', 'Eje Cafetero', 'Region de la Orinoquia y Amazonia']
+          selectedIndex = this.keys.indexOf(this.region)
         } else if (parseInt(this.section) === 3) {
           if (this.sectorGroup === 'Total') {
-            labels = ['Todos los sectores', 'Sector primario', 'Sector secundario', 'Sector terciario']
-            keys = ['Total', 'Sector Primario', 'Sector Secundario', 'Sector Terciario']
-            selectedIndex = keys.indexOf(this.sectorGroup)
+            this.labels = ['Todos los sectores', 'Sector primario', 'Sector secundario', 'Sector terciario']
+            this.keys = ['Total', 'Sector Primario', 'Sector Secundario', 'Sector Terciario']
+            selectedIndex = this.keys.indexOf(this.sectorGroup)
           }
           if (this.sectorGroup === 'Sector Primario') {
-            labels = ['Todos los sectores', 'Agricultura y ganadería', 'Minas y canteras']
-            keys = ['Total', 'Agricultura y ganadería', 'Minas y canteras']
-            selectedIndex = keys.indexOf(this.sector)
+            this.labels = ['Todos los sectores', 'Agricultura y ganadería', 'Minas y canteras']
+            this.keys = ['Total', 'Agricultura y ganadería', 'Minas y canteras']
+            selectedIndex = this.keys.indexOf(this.sector)
           }
           if (this.sectorGroup === 'Sector Secundario') {
-            labels = ['Todos los sectores', 'Manufactura', 'Servicios públicos', 'Construcción']
-            keys = ['Total', 'Industrias manufactureras', 'Servicios Publicos', 'Construccion']
-            selectedIndex = keys.indexOf(this.sector)
+            this.labels = ['Todos los sectores', 'Manufactura', 'Servicios públicos', 'Construcción']
+            this.keys = ['Total', 'Industrias manufactureras', 'Servicios Publicos', 'Construccion']
+            selectedIndex = this.keys.indexOf(this.sector)
           }
           if (this.sectorGroup === 'Sector Terciario') {
-            labels = ['Todos los sectores', 'Comercio', 'Servicios']
-            keys = ['Total', 'Comercio', 'Servicios']
-            selectedIndex = keys.indexOf(this.sector)
+            this.labels = ['Todos los sectores', 'Comercio', 'Servicios']
+            this.keys = ['Total', 'Comercio', 'Servicios']
+            selectedIndex = this.keys.indexOf(this.sector)
           }
           if (this.sectorGroup === 'Sector Secundario' && this.sector === 'Industrias manufactureras') {
-            labels = ['Todos los sectores', 'Textiles, prendas y cueros', 'Alimentos y Bebidas', 'Productos metalurgicos', 'Productos de quimicos /farmaceuticos /plasticos', 'Madera y muebles', 'Papel e impresión', 'Otros manufactura']
-            keys = ['Total', 'Textiles, prendas y cueros', 'Alimentos y Bebidas', 'Productos metalurgicos', 'Productos de quimicos /farmaceuticos /plasticos', 'Madera y muebles', 'Papel e impresión', 'Otros manufactura']
-            selectedIndex = keys.indexOf(this.subSector)
+            this.labels = ['Todos los sectores', 'Textiles, prendas y cueros', 'Alimentos y Bebidas', 'Productos metalurgicos', 'Productos de quimicos /farmaceuticos /plasticos', 'Madera y muebles', 'Papel e impresión', 'Otros manufactura']
+            this.keys = ['Total', 'Textiles, prendas y cueros', 'Alimentos y Bebidas', 'Productos metalurgicos', 'Productos de quimicos /farmaceuticos /plasticos', 'Madera y muebles', 'Papel e impresión', 'Otros manufactura']
+            selectedIndex = this.keys.indexOf(this.subSector)
           }
           if (this.sectorGroup === 'Sector Terciario' && this.sector === 'Servicios') {
-            labels = ['Todos los sectores', 'Transporte y almacenamiento', 'Alojamiento y servicios de comida', 'Información y comunicaciones', 'Actividades financieras y de seguros', 'Actividades inmobiliarias y Actividades de servicios administrativos y de apoyo', 'Actividades profesionales, científicas y técnicas', 'Administración pública y defensa', 'Educacion', 'Atencion de salud y de asistencia social', 'Actividades artísticas, de entretenimiento y recreación', 'Otros servicios']
-            keys = ['Total', 'Transporte y almacenamiento', 'Alojamiento y servicios de comida', 'Información y comunicaciones', 'Actividades financieras y de seguros', 'Actividades inmobiliarias y Actividades de servicios administrativos y de apoyo', 'Actividades profesionales, científicas y técnicas', 'Administración pública y defensa', 'Educacion', 'Atencion de salud y de asistencia social', 'Actividades artísticas, de entretenimiento y recreación', 'Otros servicios']
-            selectedIndex = keys.indexOf(this.subSector)
+            this.labels = ['Todos los sectores', 'Transporte y almacenamiento', 'Alojamiento y servicios de comida', 'Información y comunicaciones', 'Actividades financieras y de seguros', 'Actividades inmobiliarias y Actividades de servicios administrativos y de apoyo', 'Actividades profesionales, científicas y técnicas', 'Administración pública y defensa', 'Educacion', 'Atencion de salud y de asistencia social', 'Actividades artísticas, de entretenimiento y recreación', 'Otros servicios']
+            this.keys = ['Total', 'Transporte y almacenamiento', 'Alojamiento y servicios de comida', 'Información y comunicaciones', 'Actividades financieras y de seguros', 'Actividades inmobiliarias y Actividades de servicios administrativos y de apoyo', 'Actividades profesionales, científicas y técnicas', 'Administración pública y defensa', 'Educacion', 'Atencion de salud y de asistencia social', 'Actividades artísticas, de entretenimiento y recreación', 'Otros servicios']
+            selectedIndex = this.keys.indexOf(this.subSector)
           }
         }
 
         let that = this
-        values = _.map(keys, function (key) {
+        values = _.map(this.keys, function (key) {
           if (that.chartResults) {
             let record = null
             if (parseInt(that.section) === 5) {
@@ -434,13 +467,13 @@
           }
         })
 
-        let backgroundColor = _.times(labels.length, _.constant('#f87979'))
+        let backgroundColor = _.times(this.labels.length, _.constant('#f87979'))
         if (selectedIndex >= 0) {
           backgroundColor[selectedIndex] = '#7979f8'
         }
         this.dataCollection = {
           datasets: [{backgroundColor: backgroundColor, data: values}],
-          labels: labels
+          labels: this.labels
         }
       }
     },
