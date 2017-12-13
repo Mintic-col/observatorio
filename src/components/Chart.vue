@@ -10,111 +10,66 @@
         {{ level.description }}
       </p>
       <div class="col-sm-3">
-        <select  v-if="subsectionId === 1 || subsectionId === 3" v-model="year" class="form-control">
-          <option value="2015" selected>2015</option>
-          <option value="2016">2016</option>
-          <option value="2017">2017</option>
-        </select>
-        <select  v-else v-model="year" class="form-control">
-          <option value="2017" selected>2017</option>
+        <select v-model="year" class="form-control">
+          <option 
+            v-for="year in level.years" 
+            :value="year"
+            :key="year"
+          >
+            {{ year }}
+          </option>
         </select>
       </div>
       <div class="col-sm-3">
-        <select v-if="subsectionId === 1" v-model="indicator" @change="fillData()" class="form-control">
-          <option value="Calculo del Indice">Indice de Digitalización</option>
-          <option value="Infraestructura">Infraestructura</option>
-          <option value="Insumos">Insumos</option>
-          <option value="Procesamiento">Procesamiento</option>
-          <option value="Distribucion">Distribucion</option>
-        </select>
-        <select v-if="subsectionId === 2" v-model="indicator" @change="fillData()" class="form-control">
-          <option value="Calculo del Indice">Indice de Digitalización</option>
-          <option value="GOBERNANZA">Gobernanza</option>
-          <option value="PRESUPUESTO">Presupuesto</option>
-          <option value="CAPACITIACIÓN">Capacitiación</option>
-          <option value="SEGURIDAD">Seguridad</option>
-          <option value="INNOVACIÓN">Innovación</option>
-        </select>
-        <select v-if="subsectionId === 3" v-model="indicator" @change="fillData()" class="form-control">
-          <option value="Calculo del Indice">Indice de Digitalización</option>
-          <option value="INFRAESTRUCTURA">Infraestructura</option>
-          <option value="PROCESAMIENTO">Procesamiento</option>
-          <option value="DISTRIBUCION">Distribucion</option>
-        </select>
-        <select v-if="subsectionId === 4" v-model="indicator" @change="fillData()" class="form-control">
-          <option value="Calculo del Indice">Indice de Digitalización</option>
-          <option value="ESTRATEGIA">Estrategia</option>
-          <option value="GOBERNANZA">Gobernanza</option>
-          <option value="CAPITAL HUMANO">Capital Humano</option>
+        <select v-model="indicator" class="form-control">
+          <option 
+            v-for="indicator in level.indicators"
+            :key="indicator.value"
+            :value="indicator.value"
+          >
+            {{ indicator.name }}
+          </option>
         </select>
       </div>
       <div class="col-sm-3">
         <select v-model="size" class="form-control">
-          <option value="Total">Todos tamaños de empresa</option>
-          <option value="Micros">Microempresas</option>
-          <option value="Pymes">Pymes</option>
-          <option value="Grandes">Grandes</option>
+          <option v-for="option in sizes" :key="option.value" :value="option.value">
+            {{option.name}}
+          </option>
         </select>
       </div>
       <div class="col-sm-3">
         <select v-model="region" class="form-control">
-          <option value="Total">Nación</option>
-          <option value="Region Atlantico">Costa Atlántica</option>
-          <option value="Region Pacifico">Costa Pacifica</option>
-          <option value="Region Central">Región Central</option>
-          <option value="Region Oriental">Región Oriental</option>
-          <option value="Antioquia">Antioquia</option>
-          <option value="Eje Cafetero">Eje Cafetero</option>
-          <option value="Region de la Orinoquia y Amazonia">Región de la Orinoquia y Amazonia</option>
+          <option v-for="option in regions" :key="option.value" :value="option.value">
+            {{option.name}}
+          </option>
         </select>
       </div>
       <div class="col-sm-4">
-        <select v-model="sectorGroup" @change="changeSectorGroup()" class="form-control">
-          <option value="Total">Todos los sectores</option>
-          <option value="Sector Primario">Sector primario</option>
-          <option value="Sector Secundario">Sector secundario</option>
-          <option value="Sector Terciario">Sector terciario</option>
+        <select v-model="sectorGroup" class="form-control">
+          <option v-for="option in sectorGroups" :key="option.value" :value="option.value">
+            {{option.name}}
+          </option>
         </select>
       </div>
       <div class="col-sm-4">
-        <select v-if="sectorGroup != 'Total'" v-model="sector" @change="changeSector()" class="form-control">
-          <option value="Total">Todos los sectores</option>
-          <option v-if="sectorGroup == 'Sector Primario'" value="Agricultura y ganadería">Agricultura y ganadería</option>
-          <option v-if="sectorGroup == 'Sector Primario'" value="Minas y canteras">Minas y canteras</option>
-          <option v-if="sectorGroup == 'Sector Secundario'" value="Industrias manufactureras">Manufactura</option>
-          <option v-if="sectorGroup == 'Sector Secundario'" value="Servicios Publicos">Servicios públicos</option>
-          <option v-if="sectorGroup == 'Sector Secundario'" value="Construccion">Construcción</option>
-          <option v-if="sectorGroup == 'Sector Terciario'" value="Comercio">Comercio</option>
-          <option v-if="sectorGroup == 'Sector Terciario'" value="Servicios">Servicios</option>
+        <select v-if="sectors.length" v-model="sector" class="form-control">
+          <option v-for="option in sectors" :key="option.value" :value="option.value">
+            {{option.name}}
+          </option>
         </select>
       </div>
       <div class="col-sm-4">
-        <select v-if="subSectorSelection" v-model="subSector" class="form-control">
-          <option value="Total">Todos los sectores</option>
-          <option v-if="sector == 'Industrias manufactureras'" value="Textiles, prendas y cueros">Textiles, prendas y cueros</option>
-          <option v-if="sector == 'Industrias manufactureras'" value="Alimentos y Bebidas">Alimentos y Bebidas</option>
-          <option v-if="sector == 'Industrias manufactureras'" value="Productos metalurgicos">Productos metalurgicos</option>
-          <option v-if="sector == 'Industrias manufactureras'" value="Productos de quimicos /farmaceuticos /plasticos">Productos de quimicos /farmaceuticos /plasticos</option>
-          <option v-if="sector == 'Industrias manufactureras'" value="Madera y muebles">Madera y muebles</option>
-          <option v-if="sector == 'Industrias manufactureras'" value="Papel e impresión">Papel e impresión</option>
-          <option v-if="sector == 'Industrias manufactureras'" value="Otros manufactura">Otros manufactura</option>
-          <option v-if="sector == 'Servicios'" value="Transporte y almacenamiento">Transporte y almacenamiento</option>
-          <option v-if="sector == 'Servicios'" value="Alojamiento y servicios de comida">Alojamiento y servicios de comida</option>
-          <option v-if="sector == 'Servicios'" value="Información y comunicaciones">Información y comunicaciones</option>
-          <option v-if="sector == 'Servicios'" value="Actividades financieras y de seguros">Actividades financieras y de seguros</option>
-          <option v-if="sector == 'Servicios'" value="Actividades inmobiliarias y Actividades de servicios administrativos y de apoyo">Actividades inmobiliarias y Actividades de servicios administrativos y de apoyo</option>
-          <option v-if="sector == 'Servicios'" value="Actividades profesionales, científicas y técnicas">Actividades profesionales, científicas y técnicas</option>
-          <option v-if="sector == 'Servicios'" value="Administración pública y defensa">Administración pública y defensa</option>
-          <option v-if="sector == 'Servicios'" value="Educacion">Educacion</option>
-          <option v-if="sector == 'Servicios'" value="Atencion de salud y de asistencia social">Atencion de salud y de asistencia social</option>
-          <option v-if="sector == 'Servicios'" value="Actividades artísticas, de entretenimiento y recreación">Actividades artísticas, de entretenimiento y recreación</option>
-          <option v-if="sector == 'Servicios'" value="Otros servicios">Otros servicios</option>
+        <select v-if="subSectors.length" v-model="subSector" class="form-control">
+          <option v-for="option in subSectors" :key="option.value" :value="option.value">
+            {{option.name}}
+          </option>
         </select>
       </div>
       <div class="col-sm-12 chart-container">
         <bar-chart
           class="chart-item"
-          :chartData="dataCollection"
+          :chartData="chartData"
           :options="dataOptions"
           :height="200"
           >
@@ -143,9 +98,9 @@
 
 <script>
   import _ from 'lodash'
-  import Papa from 'papaparse'
 
   import { getSection, getLevel } from '@/lib/data/nav'
+  import * as Chart from '@/lib/data/chart-nav'
 
   import BarChart from '@/lib/chart/bar'
   import SubNav from '@/components/SubNav'
@@ -159,19 +114,143 @@
 
     data () {
       return {
+        sizes: Chart.sizes,
+        regions: Chart.regions,
+        sectorGroups: Chart.sectorGroups,
         size: 'Total',
         indicator: 'Calculo del Indice',
         sectorGroup: 'Total',
         sector: 'Total',
         subSector: 'Total',
         region: 'Total',
-        year: (this.subsection === '2' || this.subsection === '4') ? '2017' : '2015',
-        labels: [],
-        keys: [],
-        dataOptions: {
+        year: null,
+        results: null
+      }
+    },
+
+    mounted () {
+      this.initialize()
+    },
+
+    computed: {
+      sectionId () {
+        return parseInt(this.section)
+      },
+
+      subsectionId () {
+        return parseInt(this.subsection)
+      },
+
+      title () {
+        return getSection(this.sectionId).title
+      },
+
+      level () {
+        return getLevel(this.sectionId, this.subsectionId)
+      },
+
+      sectors () {
+        let sg = _.find(this.sectorGroups, {'value': this.sectorGroup})
+        return sg && sg.sectors ? sg.sectors : []
+      },
+
+      subSectors () {
+        let ss = _.find(this.sectors, {'value': this.sector})
+        return ss && ss.subSectors ? ss.subSectors : []
+      },
+
+      tableResults () {
+        return Chart.filtered(this.results, this)
+      },
+
+      validTableResults () {
+        return this.tableResults &&
+          this.tableResults[0] &&
+          _.trim(this.tableResults[0]['Calculo del Indice'] || this.tableResults[0][' Calculo del Indice ']) !== ''
+      },
+
+      chartResults () {
+        return Chart.filteredForChart(this.results, this.chartSettings, this)
+      },
+
+      chartSettings () {
+        let bars = null
+        let selected = null
+        let dimension = null
+        let click = null
+
+        if (this.sectionId === 5) {
+          bars = this.sizes
+          selected = _.findIndex(bars, {'value': this.size})
+          dimension = 'Tamaño de Empresa'
+          click = array => {
+            this.size = bars[array[0]._index].value
+          }
+        } else if (this.sectionId === 4) {
+          bars = this.regions
+          selected = _.findIndex(bars, {'value': this.region})
+          dimension = 'Region Geografica'
+          click = array => {
+            this.region = bars[array[0]._index].value
+          }
+        } else if (this.sectionId === 3) {
+          if (this.subSectors.length) {
+            bars = this.subSectors
+            selected = _.findIndex(bars, {'value': this.subSector})
+            dimension = 'Sub sector'
+            click = array => {
+              this.subSector = bars[array[0]._index].value
+            }
+          } else if (this.sectors.length) {
+            bars = this.sectors
+            selected = _.findIndex(bars, {'value': this.sector})
+            dimension = 'Sector Economico'
+            click = array => {
+              this.sector = bars[array[0]._index].value
+              this.subSector = 'Total'
+            }
+          } else {
+            bars = this.sectorGroups
+            selected = _.findIndex(bars, {'value': this.sectorGroup})
+            dimension = 'Sector'
+            click = array => {
+              this.sectorGroup = bars[array[0]._index].value
+              this.sector = 'Total'
+            }
+          }
+        }
+
+        return {bars, selected, dimension, click}
+      },
+
+      chartData () {
+        let {bars, selected, dimension} = this.chartSettings
+
+        let values = _.map(bars, ({name, value}) => {
+          if (this.chartResults) {
+            let record = _.find(this.chartResults, row => row[dimension] === value)
+            return record ? parseFloat(record[this.indicator] || record[' ' + this.indicator + ' ']) : 0
+          } else {
+            return 0
+          }
+        })
+
+        let backgroundColor = _.times(bars.length, _.constant('#f87979'))
+        if (selected >= 0) {
+          backgroundColor[selected] = '#7979f8'
+        }
+
+        return {
+          datasets: [{backgroundColor: backgroundColor, data: values}],
+          labels: _.map(bars, 'name')
+        }
+      },
+
+      dataOptions () {
+        return {
           responsive: true,
           maintainAspectRatio: true,
-          onClick: this.barClickEvent,
+          onClick: this.clickEvent,
           legend: {
             display: false
           },
@@ -195,203 +274,29 @@
               }
             ]
           }
-        },
-        dataCollection: { datasets: [], labels: [] },
-        results: null,
-        dataFiles: [
-          {
-            subsection: 1,
-            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=75109715&single=true&output=csv'
-          },
-          {
-            subsection: 2,
-            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=433413066&single=true&output=csv'
-          },
-          {
-            subsection: 3,
-            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=1096815165&single=true&output=csv'
-          },
-          {
-            subsection: 4,
-            url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=1442572218&single=true&output=csv'
-          }
-        ]
-      }
-    },
-
-    mounted () {
-      let that = this
-      if (this.dataFile) {
-        Papa.parse(this.dataFile, {
-          download: true,
-          header: true,
-          complete (results, file) {
-            that.results = results
-          }
-        })
-      }
-    },
-
-    computed: {
-      sectionId () {
-        return parseInt(this.section)
-      },
-
-      subsectionId () {
-        return parseInt(this.subsection)
-      },
-
-      title () {
-        return getSection(this.sectionId).title
-      },
-
-      level () {
-        return getLevel(this.sectionId, this.subsectionId)
-      },
-
-      subSectorSelection () {
-        return (this.sectorGroup === 'Sector Secundario' && this.sector === 'Industrias manufactureras') ||
-               (this.sectorGroup === 'Sector Terciario' && this.sector === 'Servicios')
-      },
-
-      showChart () {
-        return this.sector === 'all' &&
-               this.size !== '' &&
-               this.indicator !== '' &&
-               this.year !== ''
-      },
-
-      sectorSelected () {
-        return this.sector !== 'all' &&
-               this.size !== '' &&
-               this.indicator !== '' &&
-               this.year !== ''
-      },
-
-      tableResults () {
-        if (this.results) {
-          let results = _.filter(this.results.data, {
-            'Año': this.year,
-            'Tamaño de Empresa': this.size,
-            'Region Geografica': this.region,
-            'Sector': this.sectorGroup,
-            'Sector Economico': this.sector,
-            'Sub sector': this.subSector
-          })
-          console.log('FOUND ' + results.length +
-                      '  [Año: ' + this.year +
-                      ', Tamaño de Empresa: ' + this.size +
-                      ', Region Geografica: ' + this.region +
-                      ', Sector: ' + this.sectorGroup +
-                      ', Sector Economico: ' + this.sector +
-                      ', Sub sector: ' + this.subSector + ']')
-          return results
-        } else {
-          return null
         }
-      },
-
-      validTableResults () {
-        return this.tableResults && this.tableResults[0] && _.trim(this.tableResults[0]['Calculo del Indice'] || this.tableResults[0][' Calculo del Indice ']) !== ''
-      },
-
-      chartResults () {
-        if (this.results) {
-          let results = null
-          if (parseInt(this.section) === 5) {
-            results = _.filter(this.results.data, {
-              'Año': this.year,
-              'Region Geografica': this.region,
-              'Sector': this.sectorGroup,
-              'Sector Economico': this.sector,
-              'Sub sector': this.subSector
-            })
-          } else if (parseInt(this.section) === 4) {
-            results = _.filter(this.results.data, {
-              'Año': this.year,
-              'Tamaño de Empresa': this.size,
-              'Sector': this.sectorGroup,
-              'Sector Economico': this.sector,
-              'Sub sector': this.subSector
-            })
-          } else {
-            if (this.sectorGroup === 'Total') {
-              results = _.filter(this.results.data, {
-                'Año': this.year,
-                'Tamaño de Empresa': this.size,
-                'Region Geografica': this.region,
-                'Sector Economico': this.sector,
-                'Sub sector': this.subSector
-              })
-            } else {
-              results = _.filter(this.results.data, {
-                'Año': this.year,
-                'Tamaño de Empresa': this.size,
-                'Region Geografica': this.region,
-                'Sector': this.sectorGroup,
-                'Sub sector': this.subSector
-              })
-            }
-            if ((this.sectorGroup === 'Sector Secundario' && this.sector === 'Industrias manufactureras') ||
-                (this.sectorGroup === 'Sector Terciario' && this.sector === 'Servicios')) {
-              results = _.filter(this.results.data, {
-                'Año': this.year,
-                'Tamaño de Empresa': this.size,
-                'Region Geografica': this.region,
-                'Sector': this.sectorGroup,
-                'Sector Economico': this.sector
-              })
-            }
-          }
-          console.log('FOUND ' + results.length + ' records for chart')
-          return results
-        } else {
-          return null
-        }
-      },
-
-      dataFile () {
-        let obj = _.find(this.dataFiles, { subsection: parseInt(this.subsection) })
-        return obj ? obj.url : null
       }
     },
 
     methods: {
-      barClickEvent (event, array) {
-        if (array.length > 0) {
-          if (parseInt(this.section) === 5) {
-            this.size = this.keys[array[0]._index]
-          } else if (parseInt(this.section) === 4) {
-            this.region = this.keys[array[0]._index]
-          } else if (parseInt(this.section) === 3) {
-            if (this.sectorGroup === 'Sector Secundario' && this.sector === 'Industrias manufactureras') {
-              this.subSector = this.keys[array[0]._index]
-            } else if (this.sectorGroup === 'Sector Terciario' && this.sector === 'Servicios') {
-              this.subSector = this.keys[array[0]._index]
-            } else if (this.sectorGroup === 'Sector Primario') {
-              this.sector = this.keys[array[0]._index]
-              this.subSector = 'Total'
-            } else if (this.sectorGroup === 'Sector Secundario') {
-              this.sector = this.keys[array[0]._index]
-              this.subSector = 'Total'
-            } else if (this.sectorGroup === 'Sector Terciario') {
-              this.sector = this.keys[array[0]._index]
-              this.subSector = 'Total'
-            } else if (this.sectorGroup === 'Total') {
-              this.sectorGroup = this.keys[array[0]._index]
-              this.sector = 'Total'
-            }
-          }
+      initialize () {
+        let {level} = this
+
+        this.indicator = _.first(level.indicators).value
+
+        if (!_.includes(level.years, this.year)) {
+          this.year = _.first(level.years)
         }
+
+        Chart.fetchData(level.dataFile).then(results => {
+          this.results = results
+        })
       },
 
-      changeSectorGroup () {
-        this.sector = 'Total'
-        this.subSector = 'Total'
-      },
-
-      changeSector () {
-        this.subSector = 'Total'
+      clickEvent (event, array) {
+        if (array.length > 0) {
+          this.chartSettings.click(array)
+        }
       },
 
       showValue (value) {
@@ -401,121 +306,25 @@
 
       isPercentageRow (key) {
         return _.startsWith(_.trim(key), 'Porcentaje') || _.startsWith(_.trim(key), 'Proporcion')
-      },
-
-      fillData () {
-        let values = []
-        let selectedIndex = -1
-
-        if (parseInt(this.section) === 5) {
-          this.labels = ['Todos tamaños de empresa', 'Microempresas', 'Pymes', 'Grandes']
-          this.keys = ['Total', 'Micros', 'Pymes', 'Grandes']
-          selectedIndex = this.keys.indexOf(this.size)
-        } else if (parseInt(this.section) === 4) {
-          this.labels = ['Nación', 'Costa Atlántica', 'Costa Pacifica', 'Región Central', 'Región Oriental', 'Antioquia', 'Eje Cafetero', 'Región de la Orinoquia y Amazonia']
-          this.keys = ['Total', 'Region Atlantico', 'Region Pacifico', 'Region Central', 'Region Oriental', 'Antioquia', 'Eje Cafetero', 'Region de la Orinoquia y Amazonia']
-          selectedIndex = this.keys.indexOf(this.region)
-        } else if (parseInt(this.section) === 3) {
-          if (this.sectorGroup === 'Total') {
-            this.labels = ['Todos los sectores', 'Sector primario', 'Sector secundario', 'Sector terciario']
-            this.keys = ['Total', 'Sector Primario', 'Sector Secundario', 'Sector Terciario']
-            selectedIndex = this.keys.indexOf(this.sectorGroup)
-          }
-          if (this.sectorGroup === 'Sector Primario') {
-            this.labels = ['Todos los sectores', 'Agricultura y ganadería', 'Minas y canteras']
-            this.keys = ['Total', 'Agricultura y ganadería', 'Minas y canteras']
-            selectedIndex = this.keys.indexOf(this.sector)
-          }
-          if (this.sectorGroup === 'Sector Secundario') {
-            this.labels = ['Todos los sectores', 'Manufactura', 'Servicios públicos', 'Construcción']
-            this.keys = ['Total', 'Industrias manufactureras', 'Servicios Publicos', 'Construccion']
-            selectedIndex = this.keys.indexOf(this.sector)
-          }
-          if (this.sectorGroup === 'Sector Terciario') {
-            this.labels = ['Todos los sectores', 'Comercio', 'Servicios']
-            this.keys = ['Total', 'Comercio', 'Servicios']
-            selectedIndex = this.keys.indexOf(this.sector)
-          }
-          if (this.sectorGroup === 'Sector Secundario' && this.sector === 'Industrias manufactureras') {
-            this.labels = ['Todos los sectores', 'Textiles, prendas y cueros', 'Alimentos y Bebidas', 'Productos metalurgicos', 'Productos de quimicos /farmaceuticos /plasticos', 'Madera y muebles', 'Papel e impresión', 'Otros manufactura']
-            this.keys = ['Total', 'Textiles, prendas y cueros', 'Alimentos y Bebidas', 'Productos metalurgicos', 'Productos de quimicos /farmaceuticos /plasticos', 'Madera y muebles', 'Papel e impresión', 'Otros manufactura']
-            selectedIndex = this.keys.indexOf(this.subSector)
-          }
-          if (this.sectorGroup === 'Sector Terciario' && this.sector === 'Servicios') {
-            this.labels = ['Todos los sectores', 'Transporte y almacenamiento', 'Alojamiento y servicios de comida', 'Información y comunicaciones', 'Actividades financieras y de seguros', 'Actividades inmobiliarias y Actividades de servicios administrativos y de apoyo', 'Actividades profesionales, científicas y técnicas', 'Administración pública y defensa', 'Educacion', 'Atencion de salud y de asistencia social', 'Actividades artísticas, de entretenimiento y recreación', 'Otros servicios']
-            this.keys = ['Total', 'Transporte y almacenamiento', 'Alojamiento y servicios de comida', 'Información y comunicaciones', 'Actividades financieras y de seguros', 'Actividades inmobiliarias y Actividades de servicios administrativos y de apoyo', 'Actividades profesionales, científicas y técnicas', 'Administración pública y defensa', 'Educacion', 'Atencion de salud y de asistencia social', 'Actividades artísticas, de entretenimiento y recreación', 'Otros servicios']
-            selectedIndex = this.keys.indexOf(this.subSector)
-          }
-        }
-
-        let that = this
-        values = _.map(this.keys, function (key) {
-          if (that.chartResults) {
-            let record = null
-            if (parseInt(that.section) === 5) {
-              record = _.find(that.chartResults, { 'Tamaño de Empresa': key })
-            } else if (parseInt(that.section) === 4) {
-              record = _.find(that.chartResults, { 'Region Geografica': key })
-            } else if (parseInt(that.section) === 3) {
-              if (that.sectorGroup === 'Total') {
-                record = _.find(that.chartResults, { 'Sector': key })
-              } else {
-                record = _.find(that.chartResults, { 'Sector Economico': key })
-              }
-              if ((that.sectorGroup === 'Sector Secundario' && that.sector === 'Industrias manufactureras') ||
-                  (that.sectorGroup === 'Sector Terciario' && that.sector === 'Servicios')) {
-                record = _.find(that.chartResults, { 'Sub sector': key })
-              }
-            }
-            return record ? parseFloat(record[that.indicator] || record[' ' + that.indicator + ' ']) : 0
-          } else {
-            return 0
-          }
-        })
-
-        let backgroundColor = _.times(this.labels.length, _.constant('#f87979'))
-        if (selectedIndex >= 0) {
-          backgroundColor[selectedIndex] = '#7979f8'
-        }
-        this.dataCollection = {
-          datasets: [{backgroundColor: backgroundColor, data: values}],
-          labels: this.labels
-        }
       }
     },
 
     watch: {
-      dataFile () {
-        let that = this
-        if (this.dataFile) {
-          Papa.parse(this.dataFile, {
-            download: true,
-            header: true,
-            complete (results, file) {
-              that.results = results
-            }
-          })
-        } else {
-          that.results = null
-        }
-      },
-
-      tableResults () {
-        this.fillData()
-      },
-
-      section (to, from) {
+      section () {
         this.indicator = 'Calculo del Indice'
-        this.fillData()
       },
 
-      subsection (to, from) {
-        this.indicator = 'Calculo del Indice'
-        this.year = '2017'
+      subsection () {
+        this.initialize()
+      },
 
-        if (parseInt(to) === 1) {
-          this.year = '2015'
-        }
+      sectorGroup () {
+        this.sector = 'Total'
+        this.subSector = 'Total'
+      },
+
+      sector () {
+        this.subSector = 'Total'
       }
     },
 
