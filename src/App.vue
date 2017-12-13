@@ -18,4 +18,12 @@ export default {
   text-align: center;
   color: #2c3e50;
 }
+
+body {
+  font-size: 12pt;
+}
+
+.nav li a {
+  font-size: 13pt;
+}
 </style>
