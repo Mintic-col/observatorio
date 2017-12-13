@@ -1,23 +1,18 @@
 <template>
   <page class="chart">
     <div class="col-sm-3">
-      <ul class="nav nav-pills nav-stacked">
-        <li v-for="(item, index) in subsections[section-1]" :key="item" :class="{ 'active': index === parseInt(subsection)-1 }">
-          <router-link :to="{name: 'Survey', params: {section: section, subsection: index + 1}}">
-            {{ item }}
-          </router-link>
-        </li>
-      </ul>
+      <sub-nav :section="sectionId" :subsection="subsectionId" />
     </div>
     <div class="col-sm-9">
-      <h2>{{ subsections[section-1][subsection-1] }}</h2>
+      <h2>{{ level.title }}</h2>
     </div>
   </page>
 </template>
 
 <script>
-import NavData from '@/lib/data/nav'
+import { getLevel } from '@/lib/data/nav'
 
+import SubNav from '@/components/SubNav'
 import Page from '@/components/Page'
 
 export default {
@@ -25,14 +20,22 @@ export default {
 
   props: ['section', 'subsection'],
 
-  data () {
-    return {
-      subsections: NavData.subsections
+  computed: {
+    sectionId () {
+      return parseInt(this.section)
+    },
+
+    subsectionId () {
+      return parseInt(this.subsection)
+    },
+
+    level () {
+      return getLevel(this.sectionId, this.subsectionId)
     }
   },
 
   components: {
-    NavData,
+    SubNav,
     Page
   }
 

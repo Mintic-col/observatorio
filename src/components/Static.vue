@@ -1,25 +1,20 @@
 <template>
   <page class="static">
     <div class="col-sm-3">
-      <ul class="nav nav-pills nav-stacked">
-        <li v-for="(item, index) in subsections[section-1]" :key="item" :class="{ 'active': index === parseInt(subsection)-1 }">
-          <router-link :to="{name: 'Static', params: {section: section, subsection: index + 1}}">
-            {{ item }}
-          </router-link>
-        </li>
-      </ul>
+      <sub-nav :section="section" :subsection="subsection" />
     </div>
     <div class="col-sm-9">
-      <h2>{{ subsections[section-1][subsection-1] }}</h2>
-      <div v-html="staticText[section-1][subsection-1]"></div>
+      <h2>{{ level.title }}</h2>
+      <div v-html="content" />
     </div>
   </page>
 </template>
 
 <script>
-  import NavData from '@/lib/data/nav'
+  import { getLevel } from '@/lib/data/nav'
   import StaticData from '@/lib/data/static'
 
+  import SubNav from '@/components/SubNav'
   import Page from '@/components/Page'
   import Lipsum from '@/components/Lipsum'
 
@@ -28,16 +23,26 @@
 
     props: ['section', 'subsection'],
 
-    data () {
-      return {
-        subsections: NavData.subsections,
-        staticText: StaticData.static
+    computed: {
+      sectionId () {
+        return parseInt(this.section)
+      },
+
+      subsectionId () {
+        return parseInt(this.subsection)
+      },
+
+      level () {
+        return getLevel(this.sectionId, this.subsectionId)
+      },
+
+      content () {
+        return StaticData.static[this.sectionId - 1][this.subsectionId - 1]
       }
     },
 
     components: {
-      NavData,
-      StaticData,
+      SubNav,
       Page,
       Lipsum
     }
