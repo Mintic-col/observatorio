@@ -17,171 +17,22 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Visión
+          <li 
+            v-for="(section, sectionIdx) in sections"
+            :key="sectionIdx"
+            class="dropdown"
+          >
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              {{section.title}}
               <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li>
-                <router-link :to="{name: 'Static', params: {section: 1, subsection: 1}}">
-                  Que es la economía digital?
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Static', params: {section: 1, subsection: 2}}">
-                  Tendencias mundiales de digitalización de las economías
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Static', params: {section: 1, subsection: 3}}">
-                  La importancia económica de la digitalización
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Static', params: {section: 1, subsection: 4}}">
-                  La economía digital y Colombia
-                </router-link>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Medición
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <router-link :to="{name: 'Static', params: {section: 2, subsection: 1}}">
-                  Dimensiones de la economía digital
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Static', params: {section: 2, subsection: 2}}">
-                  Experiencia internacional apara la medición de la economía digital
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Static', params: {section: 2, subsection: 3}}">
-                  Índices para medir el desarrollo de la economía digital de Colombia
-                </router-link>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sector
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <router-link :to="{name: 'Chart', params: {section: 3, subsection: 1}}">
-                  Adopción de tecnologías digitales maduras
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Chart', params: {section: 3, subsection: 2}}">
-                  Gestión de tecnologías digitales maduras
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Chart', params: {section: 3, subsection: 3}}">
-                  Adopción de tecnologías digitales avanzadas
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Chart', params: {section: 3, subsection: 4}}">
-                  Gestión de tecnologías digitales avanzadas
-                </router-link>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Región
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <router-link :to="{name: 'Chart', params: {section: 4, subsection: 1}}">
-                  Adopción de tecnologías digitales maduras
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Chart', params: {section: 4, subsection: 2}}">
-                  Gestión de tecnologías digitales maduras
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Chart', params: {section: 4, subsection: 3}}">
-                  Adopción de tecnologías digitales avanzadas
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Chart', params: {section: 4, subsection: 4}}">
-                  Gestión de tecnologías digitales avanzadas
-                </router-link>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dimensiones
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <router-link :to="{name: 'Chart', params: {section: 5, subsection: 1}}">
-                  Adopción de tecnologías digitales maduras
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Chart', params: {section: 5, subsection: 2}}">
-                  Gestión de tecnologías digitales maduras
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Chart', params: {section: 5, subsection: 3}}">
-                  Adopción de tecnologías digitales avanzadas
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Chart', params: {section: 5, subsection: 4}}">
-                  Gestión de tecnologías digitales avanzadas
-                </router-link>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Encuestas
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <router-link :to="{name: 'Survey', params: {section: 6, subsection: 1}}">
-                  Departamento Administrativo Nacional de Estadística (DANE)
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Survey', params: {section: 6, subsection: 2}}">
-                  Ministerio de Tecnologías de la Información y las Comunicaciones (MINTIC)
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Survey', params: {section: 6, subsection: 3}}">
-                  Otras encuestas
-                </router-link>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Documentos
-              <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <router-link :to="{name: 'Links', params: {section: 7, subsection: 1}}">
-                  Adopción de tecnologías digitales maduras
-                </router-link>
-              </li>
-              <li>
-                <router-link :to="{name: 'Links', params: {section: 7, subsection: 2}}">
-                  Gestión de tecnologías digitales maduras
+              <li 
+                v-for="(level, levelIdx) in section.levels"
+                :key="levelIdx"
+              >
+                <router-link :to="{name: section.route, params: {section: sectionIdx + 1, subsection: levelIdx + 1}}">
+                  {{level.title}}
                 </router-link>
               </li>
             </ul>
@@ -195,9 +46,17 @@
 </template>
 
 <script>
-export default {
-  name: 'navbar'
-}
+  import {sections} from '@/lib/data/nav'
+
+  export default {
+    name: 'navbar',
+
+    computed: {
+      sections () {
+        return sections
+      }
+    }
+  }
 </script>
 
 <style scoped>

@@ -1,25 +1,16 @@
 <template>
   <page class="chart">
     <div class="col-sm-3">
-      <ul class="nav nav-pills nav-stacked">
-        <li v-for="(item, index) in subsections[section-1]" :key="item" :class="{ 'active': index === parseInt(subsection)-1 }">
-          <router-link :to="{name: 'Chart', params: {section: section, subsection: index + 1}}">
-            {{ item }}
-          </router-link>
-        </li>
-      </ul>
+      <sub-nav :section="sectionId" :subsection="subsectionId" />
     </div>
     <div class="col-sm-9">
-      <h4 class="grouping">{{ sections[section-1] }}</h4>
-      <h2>{{ subsections[section-1][subsection-1] }}</h2>
-      <p v-if="subsection <= 2">
-        Este nivel estudia la asimilación por sector industrial de tecnologías digitales consideradas maduras como computación (PC, servidores), el uso de Internet, aplicaciones de Internet (banca electrónica, publicidad, venta de productos, compra de insumos, acceso a información de productos y servicios, provisión de servicio a clientes, correo electrónico, interacción con el gobierno), uso de banda ancha (ADSL, Fibra óptica, cable modem, LTE), el despliegue de LAN, la existencia de sitio Web, y el software de gestión.
-      </p>
-      <p v-else>
-        La asimilación de tecnologías de avanzada debe considerar siete categorías de tecnologías digitales: ciberseguridad, sensores/m2m, robotica, impresoras 3d, computacion en la nube, big data/analiticas, e inteligencia artificial/aprendizaje de maquinas.
+      <h4 class="grouping">{{ title }}</h4>
+      <h2>{{ level.title }}</h2>
+      <p>
+        {{ level.description }}
       </p>
       <div class="col-sm-3">
-        <select  v-if="subsection == 1 || subsection == 3" v-model="year" class="form-control">
+        <select  v-if="subsectionId === 1 || subsectionId === 3" v-model="year" class="form-control">
           <option value="2015" selected>2015</option>
           <option value="2016">2016</option>
           <option value="2017">2017</option>
@@ -29,14 +20,14 @@
         </select>
       </div>
       <div class="col-sm-3">
-        <select v-if="subsection == 1" v-model="indicator" @change="fillData()" class="form-control">
+        <select v-if="subsectionId === 1" v-model="indicator" @change="fillData()" class="form-control">
           <option value="Calculo del Indice">Indice de Digitalización</option>
           <option value="Infraestructura">Infraestructura</option>
           <option value="Insumos">Insumos</option>
           <option value="Procesamiento">Procesamiento</option>
           <option value="Distribucion">Distribucion</option>
         </select>
-        <select v-if="subsection == 2" v-model="indicator" @change="fillData()" class="form-control">
+        <select v-if="subsectionId === 2" v-model="indicator" @change="fillData()" class="form-control">
           <option value="Calculo del Indice">Indice de Digitalización</option>
           <option value="GOBERNANZA">Gobernanza</option>
           <option value="PRESUPUESTO">Presupuesto</option>
@@ -44,13 +35,13 @@
           <option value="SEGURIDAD">Seguridad</option>
           <option value="INNOVACIÓN">Innovación</option>
         </select>
-        <select v-if="subsection == 3" v-model="indicator" @change="fillData()" class="form-control">
+        <select v-if="subsectionId === 3" v-model="indicator" @change="fillData()" class="form-control">
           <option value="Calculo del Indice">Indice de Digitalización</option>
           <option value="INFRAESTRUCTURA">Infraestructura</option>
           <option value="PROCESAMIENTO">Procesamiento</option>
           <option value="DISTRIBUCION">Distribucion</option>
         </select>
-        <select v-if="subsection == 4" v-model="indicator" @change="fillData()" class="form-control">
+        <select v-if="subsectionId === 4" v-model="indicator" @change="fillData()" class="form-control">
           <option value="Calculo del Indice">Indice de Digitalización</option>
           <option value="ESTRATEGIA">Estrategia</option>
           <option value="GOBERNANZA">Gobernanza</option>
@@ -154,9 +145,10 @@
   import _ from 'lodash'
   import Papa from 'papaparse'
 
-  import NavData from '@/lib/data/nav'
-  import BarChart from '@/lib/chart/bar'
+  import { getSection, getLevel } from '@/lib/data/nav'
 
+  import BarChart from '@/lib/chart/bar'
+  import SubNav from '@/components/SubNav'
   import Page from '@/components/Page'
   import Lipsum from '@/components/Lipsum'
 
@@ -167,8 +159,6 @@
 
     data () {
       return {
-        sections: NavData.sections,
-        subsections: NavData.subsections,
         size: 'Total',
         indicator: 'Calculo del Indice',
         sectorGroup: 'Total',
@@ -235,7 +225,7 @@
         Papa.parse(this.dataFile, {
           download: true,
           header: true,
-          complete: function (results, file) {
+          complete (results, file) {
             that.results = results
           }
         })
@@ -243,26 +233,42 @@
     },
 
     computed: {
-      subSectorSelection: function () {
+      sectionId () {
+        return parseInt(this.section)
+      },
+
+      subsectionId () {
+        return parseInt(this.subsection)
+      },
+
+      title () {
+        return getSection(this.sectionId).title
+      },
+
+      level () {
+        return getLevel(this.sectionId, this.subsectionId)
+      },
+
+      subSectorSelection () {
         return (this.sectorGroup === 'Sector Secundario' && this.sector === 'Industrias manufactureras') ||
                (this.sectorGroup === 'Sector Terciario' && this.sector === 'Servicios')
       },
 
-      showChart: function () {
+      showChart () {
         return this.sector === 'all' &&
                this.size !== '' &&
                this.indicator !== '' &&
                this.year !== ''
       },
 
-      sectorSelected: function () {
+      sectorSelected () {
         return this.sector !== 'all' &&
                this.size !== '' &&
                this.indicator !== '' &&
                this.year !== ''
       },
 
-      tableResults: function () {
+      tableResults () {
         if (this.results) {
           let results = _.filter(this.results.data, {
             'Año': this.year,
@@ -285,11 +291,11 @@
         }
       },
 
-      validTableResults: function () {
+      validTableResults () {
         return this.tableResults && this.tableResults[0] && _.trim(this.tableResults[0]['Calculo del Indice'] || this.tableResults[0][' Calculo del Indice ']) !== ''
       },
 
-      chartResults: function () {
+      chartResults () {
         if (this.results) {
           let results = null
           if (parseInt(this.section) === 5) {
@@ -344,14 +350,14 @@
         }
       },
 
-      dataFile: function () {
+      dataFile () {
         let obj = _.find(this.dataFiles, { subsection: parseInt(this.subsection) })
         return obj ? obj.url : null
       }
     },
 
     methods: {
-      barClickEvent: function (event, array) {
+      barClickEvent (event, array) {
         if (array.length > 0) {
           if (parseInt(this.section) === 5) {
             this.size = this.keys[array[0]._index]
@@ -379,25 +385,25 @@
         }
       },
 
-      changeSectorGroup: function () {
+      changeSectorGroup () {
         this.sector = 'Total'
         this.subSector = 'Total'
       },
 
-      changeSector: function () {
+      changeSector () {
         this.subSector = 'Total'
       },
 
-      showValue: function (value) {
+      showValue (value) {
         let v = _.trim(value)
         return v === '' ? 'n.d.' : (_.endsWith(v, '%') ? v : v + '%')
       },
 
-      isPercentageRow: function (key) {
+      isPercentageRow (key) {
         return _.startsWith(_.trim(key), 'Porcentaje') || _.startsWith(_.trim(key), 'Proporcion')
       },
 
-      fillData: function () {
+      fillData () {
         let values = []
         let selectedIndex = -1
 
@@ -479,13 +485,13 @@
     },
 
     watch: {
-      dataFile: function () {
+      dataFile () {
         let that = this
         if (this.dataFile) {
           Papa.parse(this.dataFile, {
             download: true,
             header: true,
-            complete: function (results, file) {
+            complete (results, file) {
               that.results = results
             }
           })
@@ -494,16 +500,16 @@
         }
       },
 
-      tableResults: function () {
+      tableResults () {
         this.fillData()
       },
 
-      section: function (to, from) {
+      section (to, from) {
         this.indicator = 'Calculo del Indice'
         this.fillData()
       },
 
-      subsection: function (to, from) {
+      subsection (to, from) {
         this.indicator = 'Calculo del Indice'
         this.year = '2017'
 
@@ -514,7 +520,7 @@
     },
 
     components: {
-      NavData,
+      SubNav,
       BarChart,
       Page,
       Lipsum
