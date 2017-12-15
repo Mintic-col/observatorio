@@ -37,7 +37,7 @@ export const sections = [
   },
   {
     title: 'Encuestas',
-    route: 'Survey',
+    route: 'Links',
     levels: [
       { title: 'Departamento Administrativo Nacional de Estadística (DANE)' },
       { title: 'Ministerio de Tecnologías de la Información y las Comunicaciones (MINTIC)' },

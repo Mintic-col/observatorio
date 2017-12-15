@@ -361,7 +361,7 @@
   }
   .chart-overlay {
     width: 300px;
-    height: 55px;
+    height: 75px;
     position: absolute;
     top: 100px;
     left: 30%;

@@ -63,7 +63,7 @@
           </router-link>
         </div>
         <div class="col-md-4">
-          <router-link class="btn btn-primary" :to="{name: 'Survey', params: {section: 6, subsection: 1}}">
+          <router-link class="btn btn-primary" :to="{name: 'Links', params: {section: 6, subsection: 1}}">
             Encuestas »
           </router-link>
         </div>
