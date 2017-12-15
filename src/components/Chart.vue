@@ -75,7 +75,7 @@
           >
         </bar-chart>
         <div v-if="!loading && !validTableResults" class="chart-overlay"><br />NO DISPONIBLE POR FALTA DE DATOS </div>
-        <div v-if="loading" class="chart-overlay"><br />Cargando...</div>
+        <div v-if="loading" class="chart-overlay"><br />CARGANDO DATOS...</div>
       </div>
       <div v-if="tableResults" class="col-sm-12">
         <table class="table">
