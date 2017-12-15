@@ -74,7 +74,8 @@
           :height="200"
           >
         </bar-chart>
-        <div v-if="!validTableResults" class="chart-overlay"><br />NO DISPONIBLE POR FALTA DE DATOS </div>
+        <div v-if="!loading && !validTableResults" class="chart-overlay"><br />NO DISPONIBLE POR FALTA DE DATOS </div>
+        <div v-if="loading" class="chart-overlay"><br />Cargando...</div>
       </div>
       <div v-if="tableResults" class="col-sm-12">
         <table class="table">
@@ -124,7 +125,8 @@
         subSector: 'Total',
         region: 'Total',
         year: null,
-        results: null
+        results: null,
+        loading: false
       }
     },
 
@@ -288,8 +290,10 @@
           this.year = _.first(level.years)
         }
 
+        this.loading = true
         Chart.fetchData(level.dataFile).then(results => {
           this.results = results
+          this.loading = false
         })
       },
 
