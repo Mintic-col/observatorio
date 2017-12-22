@@ -6,7 +6,8 @@ export const chartLevels = [
     title: 'Adopción de tecnologías digitales maduras',
     description: 'Este nivel estudia la asimilación por sector industrial de tecnologías digitales consideradas maduras como computación (PC, servidores), el uso de Internet, aplicaciones de Internet (banca electrónica, publicidad, venta de productos, compra de insumos, acceso a información de productos y servicios, provisión de servicio a clientes, correo electrónico, interacción con el gobierno), uso de banda ancha (ADSL, Fibra óptica, cable modem, LTE), el despliegue de LAN, la existencia de sitio Web, y el software de gestión.',
     years: ['2015', '2016', '2017'],
-    dataFile: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=75109715&single=true&output=csv',
+    // dataFile: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=75109715&single=true&output=csv',
+    dataFile: '/static/data/Colombia Observatory - First Level.csv',
     indicators: [
       { value: 'Calculo del Indice', name: 'Indice de Digitalización' },
       { value: 'Infraestructura', name: 'Infraestructura' },
@@ -18,7 +19,8 @@ export const chartLevels = [
   {
     title: 'Gestión de tecnologías digitales maduras',
     description: 'Este nivel estudia la asimilación por sector industrial de tecnologías digitales consideradas maduras como computación (PC, servidores), el uso de Internet, aplicaciones de Internet (banca electrónica, publicidad, venta de productos, compra de insumos, acceso a información de productos y servicios, provisión de servicio a clientes, correo electrónico, interacción con el gobierno), uso de banda ancha (ADSL, Fibra óptica, cable modem, LTE), el despliegue de LAN, la existencia de sitio Web, y el software de gestión.',
-    dataFile: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=433413066&single=true&output=csv',
+    // dataFile: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=433413066&single=true&output=csv',
+    dataFile: '/static/data/Colombia Observatory - Second Level.csv',
     years: ['2017'],
     indicators: [
       { value: 'Calculo del Indice', name: 'Indice de Digitalización' },
@@ -32,7 +34,8 @@ export const chartLevels = [
   {
     title: 'Adopción de tecnologías digitales avanzadas',
     description: 'La asimilación de tecnologías de avanzada debe considerar siete categorías de tecnologías digitales: ciberseguridad, sensores/m2m, robotica, impresoras 3d, computacion en la nube, big data/analiticas, e inteligencia artificial/aprendizaje de maquinas.',
-    dataFile: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=1096815165&single=true&output=csv',
+    // dataFile: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=1096815165&single=true&output=csv',
+    dataFile: '/static/data/Colombia Observatory - Third Level.csv',
     years: ['2015', '2016', '2017'],
     indicators: [
       { value: 'Calculo del Indice', name: 'Indice de Digitalización' },
@@ -44,7 +47,8 @@ export const chartLevels = [
   {
     title: 'Gestión de tecnologías digitales avanzadas',
     description: 'La asimilación de tecnologías de avanzada debe considerar siete categorías de tecnologías digitales: ciberseguridad, sensores/m2m, robotica, impresoras 3d, computacion en la nube, big data/analiticas, e inteligencia artificial/aprendizaje de maquinas.',
-    dataFile: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=1442572218&single=true&output=csv',
+    // dataFile: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vScgfj7wnWUCwfFYU3T7h3TRfu1ggQglMfzitHjC6Y-L-2XbCfTPN3h4WCi8-muk_ZzTY9YH_5iHpFK/pub?gid=1442572218&single=true&output=csv',
+    dataFile: '/static/data/Colombia Observatory - Fourth Level.csv',
     years: ['2017'],
     indicators: [
       { value: 'Calculo del Indice', name: 'Indice de Digitalización' },
